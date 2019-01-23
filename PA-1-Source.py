@@ -6,41 +6,42 @@ import statistics
 
 ARRAY_SIZE = 200  # 100 sets of pairs
 RAND_MIN = 1  # Min value of randomly generated number
-RAND_MAX = 999  # Max value of randomly generated number
+RAND_MAX = 1000000  # Max value of randomly generated number
 
 
 # Outputs stats of algorithm time execution tests.  Option to save stats and full results to .csv file.
 def main():
-    # Array of size 200, with values ranging from 1 to 999
+    # Array of size 200, with values ranging from 1 to the MAX
     # Values are used in pairs, so an array of size 200 will produce 100 test runs
     print("\nStarting Euclid Tests\n")
 
     print("Creating random inputs from " + str(RAND_MIN) + " to " + str(RAND_MAX) + " ... ", end="")
     numbers = create_random_array(ARRAY_SIZE, RAND_MIN, RAND_MAX)
 
-    # Brute Force starting from 'b'
-    print("Done\nRunning Brute Force ... ", end="")
-    brute_v1_results = Results("Brute_Force_v1", run_test(brute_force, numbers))
-    
     # Brute Force starting from 1
-    print("Done\nRunning Brute Force ... ", end="")
-    brute_v2_results = Results("Brute_Force_v2", run_test(brute_force_second, numbers))
-    
+    print("Done\nRunning Brute Force (v1) ... ", end="")
+    brute_v1_results = Results("Brute_Force_v1", run_test(brute_force_v1, numbers))
+
+    # Brute Force starting from 'b'
+    print("Done\nRunning Brute Force (v2) ... ", end="")
+    brute_v2_results = Results("Brute_Force_v2", run_test(brute_force_v2, numbers))
+
     # Euclid no Subtraction
     print("Done\nRunning Original Euclid ... ", end="")
-    euclid_v1_results = Results("Original_Euclid", run_test(original_euclid, numbers))
+    euclid_original_results = Results("Original_Euclid", run_test(original_euclid, numbers))
     
     # Euclid with Subtraction
     print("Done\nRunning Second Euclid ... ", end="")
-    euclid_v2_results = Results("Second_Euclid", run_test(second_euclid, numbers))
+    euclid_second_results = Results("Second_Euclid", run_test(second_euclid, numbers))
     
     print("Done\n\nResults:\n")
-    output_to_console(brute_v1_results, brute_v2_results, euclid_v1_results, euclid_v2_results)
+    output_to_console(brute_v1_results, brute_v2_results, euclid_original_results, euclid_second_results)
 
     # Prompts user to save results
     if save_results():
         # Creates a directory on the host in the current path called PA-1-Results, if it did not previously
-        # exist.  The output files will be written here.  Any prexisting output files will be overwritten
+        # exist.  The output files will be written here inside a timestamped folder.  This is done so if the program is
+        # run, it won't overwrite the "officially" submitted spreadsheet
         if not os.path.exists("PA-1-Results"):
             print("Creating directory PA-1-Results ... ", end="")
             os.mkdir("PA-1-Results")
@@ -51,7 +52,7 @@ def main():
         os.mkdir(trial_dir)
         os.chdir(trial_dir)
 
-        output_to_csv(brute_v1_results, brute_v2_results, euclid_v1_results, euclid_v2_results)
+        output_to_csv(brute_v1_results, brute_v2_results, euclid_original_results, euclid_second_results)
         print("Done\n\nResults saved to " + os.getcwd() + "\n")
 
     # Added so the console that appears when the executable is run doesn't dissappear automatically
@@ -95,7 +96,7 @@ class Results(object):
         """
         self.algorithm = algorithm
         self.datapoints = datapoints
-        self.max = max(data_point.time for data_point in datapoints)  #  max time
+        self.max = max(data_point.time for data_point in datapoints)  # max time
         self.min = min(data_point.time for data_point in datapoints)  # min time
         self.avg = sum(data_point.time for data_point in datapoints) / len(datapoints)  # avg time
         self.median = statistics.median(data_point.time for data_point in datapoints)  # median time
@@ -104,23 +105,24 @@ class Results(object):
 ########################################################################################################################
 #  Tested Algorithms
 ########################################################################################################################
-# Iterate through all values of 'b', starting with 'b' and working down to 1
-# If a number is a divisor of b, check if its also a divisor of 'a'
-# Note 'b' is always <= a
-def brute_force(a, b):
-    for n in reversed(range(1, b + 1)):
-        if a % n == 0 and b % n == 0:
-            return n
-    return 1
-
 # Starts iterating from 1 to 'b'
-def brute_force_second(a, b):
+def brute_force_v1(a, b):
     gcd = 1
     for n in range(1, b + 1):
         if a % n == 0 and b % n == 0:
             gcd = n
     return gcd
 
+# Iterate through all values of 'b', starting with 'b' and working down to 1
+# If a number is a divisor of b, check if its also a divisor of 'a'
+# Note 'b' is always <= a
+def brute_force_v2(a, b):
+    for n in range(b+1, 1, -1):
+        if a % n == 0 and b % n == 0:
+            return n
+    return 1
+
+#  Calculate the quotient using division until the remainder is 0
 def original_euclid(a, b):
     remainder = None
     while 0 != remainder:
@@ -130,16 +132,17 @@ def original_euclid(a, b):
         b = remainder
     return a
 
+#  Calculate the quotient using subtraction and division until the remainder is 0
 def second_euclid(a, b):
     remainder = None
     while 0 != remainder:
         remainder = a - b
-        if remainder >= b:
+        if remainder >= b:  # quotient > 1
             remainder = remainder - b
-            if remainder >= b:
+            if remainder >= b:  # quotient > 2
                 remainder = remainder - b
-                if remainder >= b:
-                    remainder = a - b * (a // b)
+                if remainder >= b:  # quotient > 3
+                    remainder = a - b * (a // b)  # PUNT
         a = b
         b = remainder
     return a
