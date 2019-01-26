@@ -1,8 +1,12 @@
+"""
+Measures time execution for 2 variants of a Brute Force algorithm and 2 variants of Euclids.  Saves results/stats
+to .csv files and generates a Conclusions.txt file.
+"""
+
 import os
-import datetime
 import random
-import timeit
 import statistics
+import timeit
 
 ARRAY_SIZE = 200  # 100 sets of pairs
 RAND_MIN = 1  # Min value of randomly generated number
@@ -39,21 +43,14 @@ def main():
 
     # Prompts user to save results
     if save_results():
-        # Creates a directory on the host in the current path called PA-1-Results, if it did not previously
-        # exist.  The output files will be written here inside a timestamped folder.  This is done so if the program is
-        # run, it won't overwrite the "officially" submitted spreadsheet
-        if not os.path.exists("PA-1-Results"):
-            print("Creating directory PA-1-Results ... ", end="")
-            os.mkdir("PA-1-Results")
-            print("Done\n")
-        os.chdir("PA-1-Results")
-
-        trial_dir = os.path.join(os.getcwd(), datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
-        os.mkdir(trial_dir)
-        os.chdir(trial_dir)
-
+        # Prompts user to save results, overwriting the files in the current directory.  The conclusion.txt is created
+        # by the program from the stats/results .csv files
+        print("\nSaving Results to .csv files ... ", end="")
         output_to_csv(brute_v1_results, brute_v2_results, euclid_original_results, euclid_second_results)
-        print("Done\n\nResults saved to " + os.getcwd() + "\n")
+        output_conclusion(
+            brute_v1_results.datapoints, brute_v2_results.datapoints, euclid_original_results.datapoints, euclid_second_results.datapoints)
+        print("Done\nGenerating Conclusion.txt ... ", end="")
+        print("Done\n\nFiles saved to " + os.getcwd() + "\n")
 
     # Added so the console that appears when the executable is run doesn't dissappear automatically
     input("Press Enter to exit ")
@@ -237,6 +234,39 @@ def output_to_console(*argv):
         print("%-22s " % (arg.median), end="")
     print("\n")
 
+# Creates Conclusion.txt from the results
+def output_conclusion(brute1, brute2, e1, e2):
+    with open("Conclusions.txt", "w") as file:
+        pairs, time_saved = compare_execution_time(brute2, brute1)
+        file.write("Out of 100 pairs of integers, brute-force (v2) outperformed brute-force (v1) in " +
+                   str(pairs) + " pairs; and the average time saved for these " + str(pairs) +
+                   " pairs of integers was " + str(time_saved) + " milliseconds \n")
+
+        pairs, time_saved = compare_execution_time(e1, brute1)
+        file.write("Out of 100 pairs of integers, the original version of Euclid outperformed brute-force (v1) in " +
+                   str(pairs) + " pairs; and the average time saved for these " + str(pairs) +
+                   " pairs of integers was " + str(time_saved) + " milliseconds \n")
+
+        pairs, time_saved = compare_execution_time(e2, brute1)
+        file.write("Out of 100 pairs of integers, the second version of Euclid outperformed brute-force (v1) in " +
+                   str(pairs) + " pairs; and the average time saved for these " + str(pairs) +
+                   " pairs of integers was " + str(time_saved) + " milliseconds \n")
+
+        pairs, time_saved = compare_execution_time(e1, brute2)
+        file.write("Out of 100 pairs of integers, the original version of Euclid outperformed brute-force (v2) in " +
+                   str(pairs) + " pairs; and the average time saved for these " + str(pairs) +
+                   " pairs of integers was " + str(time_saved) + " milliseconds \n")
+
+        pairs, time_saved = compare_execution_time(e2, brute2)
+        file.write("Out of 100 pairs of integers, the second version of Euclid outperformed brute-force (v2) in " +
+                   str(pairs) + " pairs; and the average time saved for these " + str(pairs) +
+                   " pairs of integers was " + str(time_saved) + " milliseconds \n")
+
+        pairs, time_saved = compare_execution_time(e2, e1)
+        file.write("Out of 100 pairs of integers, the second version of Euclid outperformed the original one in " +
+                   str(pairs) + " pairs; and the average time saved for these " + str(pairs) +
+                   " pairs of integers was " + str(time_saved) + " milliseconds \n")
+
 
 ########################################################################################################################
 #  Helpers
@@ -258,6 +288,21 @@ def save_results():
     else:
         print("Incorrect input ... ")
         save_results()
+
+#  Used by output_conclusion.  Returns number of pairs that are faster and the average time saved by the pairs
+def compare_execution_time(alg1, alg2):
+    ctr = 0
+    time1 = 0
+    time2 = 0
+    for n in range(0, 100):
+        if alg1[n].time < alg2[n].time:
+            ctr += 1
+            time1 = alg1[n].time
+            time2 = alg2[n].time
+    if ctr != 0:
+        avg_time_saved = float((time2/ctr) - (time1/ctr))
+        return ctr, avg_time_saved
+    return 0, 0
 
 
 ########################################################################################################################

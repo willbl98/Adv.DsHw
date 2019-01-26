@@ -1,1 +1,7 @@
-Simply double click on the .exe file.  The program will output the statics of each algorithm to the console. The user will be be prompted with save the statistic/complete results to files.  If yes is selected, a folder PA-1-Results will be created in the current path, in addition to a timestamped folder with the files.  This is done to prevent subsequent runs from overwriting the 'officially' submitted files.
+# AdvAlg PAs & HW
+
+## Source  
+Each PA's/HW's source is posted to its corresponding directory, e.g. HW1, HW2, etc.
+
+## Submissions  
+The finalized assignments/working submissions will be posted to the [releases](https://github.com/willbl98/Adv.DsHw/releases/) page.  Each assignment will have its own release.
