@@ -1,6 +1,7 @@
 # Robert Allen, William Blackwell, Bradley Sutton
 # Implement the merge-sort algorithm on 9 random arrays and output to an excel sheet
 
+import os
 import random
 import timeit
 import math
@@ -8,11 +9,17 @@ import math
 ARRAY_SIZE = 1000  # 100 sets of pairs
 RAND_MIN = 1  # Min value of randomly generated number
 RAND_MAX = 1000000  # Max value of randomly generated number
+NUM_RUNS = 9
+
 
 # Outputs stats of algorithm time execution tests
 def main():
-    test_results = run_test(ARRAY_SIZE)
+    print("Creating Arrays ... ", end="")
+    test_results = run_tests(ARRAY_SIZE, NUM_RUNS)
+    print("Done.\n\nSaving results to file ... ", end="")
     output_to_csv(test_results)
+    print("Done.\nFile saved to " + os.getcwd() + "\Mergesort_Time.csv")
+    console_interface(test_results)
 
 
 ########################################################################################################################
@@ -20,15 +27,16 @@ def main():
 ########################################################################################################################
 class DataPoint(object):
     """
-    Contains the information about each test run to use in results
+    Contains the information about each test run to use in file/console output
     """
+
     def __init__(self, unsorted_arr, sorted_arr, size, time):
         self.unsorted_arr = unsorted_arr
         self.sorted_arr = sorted_arr
         self.size = size
         self.time = time
-        self.nlogn = math.log(size, 2)
-        self.logn_over_time = self.nlogn / self.time
+        self.nlogn = math.log(size, 2) * size
+        self.nlogn_over_time = self.nlogn / self.time
 
 
 ########################################################################################################################
@@ -61,13 +69,14 @@ def merge(merged_array, left, right):
 
     return merged_array
 
+
 def mergesort(array):
     if len(array) == 1:
         return array
     else:
         # split
-        left = array[:len(array)//2]
-        right = array[len(array)//2:]
+        left = array[:len(array) // 2]
+        right = array[len(array) // 2:]
 
         # sort
         mergesort(left)
@@ -78,15 +87,17 @@ def mergesort(array):
 ########################################################################################################################
 #  Time Execution Test
 ########################################################################################################################
-def run_test(num_elements):
+def run_tests(num_elements, num_runs):
     test_results = []  # Array of Datapoint objects
-    for i in range(1, 10):
+    for i in range(1, num_runs + 1):
+        print(i, end=" ")
         rand_array = create_random_array(num_elements * i, RAND_MIN, RAND_MAX)
+        unsorted = rand_array[:]
         start_time = timeit.default_timer()
         sorted_array = mergesort(rand_array)
         stop_time = timeit.default_timer()
         # Add results to dataset.  Time is saved in milliseconds
-        test_results.append(DataPoint(rand_array, sorted_array, num_elements * i, (stop_time - start_time) * 1000))
+        test_results.append(DataPoint(unsorted, sorted_array, num_elements * i, (stop_time - start_time) * 1000))
     return test_results
 
 
@@ -95,11 +106,30 @@ def run_test(num_elements):
 ########################################################################################################################
 def output_to_csv(*argv):
     for arg in argv:
-        with open("Results.csv", 'w') as file:
-            file.write("Size, nlogn,Time Spent (Milliseconds), nlogn/time\n")
+        with open("Mergesort_Time.csv", 'w') as file:
+            file.write("Input size n for Array_i,Value of n*logn,Time Spent(ms),Value of (n*logn)/time\n")
             for a in arg:
-                file.write(",".join((str(a.size), str(a.nlogn), str(a.time), str(a.logn_over_time))))
+                file.write(",".join((str(a.size), str(a.nlogn), str(a.time), str(a.nlogn_over_time))))
                 file.write("\n")
+
+
+def console_interface(test_results):
+    print("\n\nEnter an array to display(1 - 9) or q to quit\n")
+    while True:
+        user_in = input(" ->  ")
+        try:
+            if user_in == 'q':
+                print("Exiting ... \n")
+                break
+            print("%-12s %-22s %-22s" % ("Index", "Unsorted", "Sorted"))
+            ctr = 0
+            index = int(user_in) - 1
+            for a, b in zip(test_results[index].unsorted_arr, test_results[index].sorted_arr):
+                print("%-12s %-22s %-22s" % (ctr, a, b))
+                ctr += 1
+            print()
+        except:
+            print("Invalid input: ", user_in, "\n")
 
 
 ########################################################################################################################
