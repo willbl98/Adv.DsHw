@@ -5,6 +5,7 @@ import os
 import random
 import timeit
 import math
+from decimal import Decimal
 
 ARRAY_SIZE = 1000  # 100 sets of pairs
 RAND_MIN = 1  # Min value of randomly generated number
@@ -36,7 +37,7 @@ class DataPoint(object):
         self.size = size
         self.time = time
         self.nlogn = math.log(size, 2) * size
-        self.nlogn_over_time = self.nlogn / self.time
+        self.nlogn_over_time = '%0.E' % Decimal(self.nlogn / self.time)  # scientific notation rounded to nearest int
 
 
 ########################################################################################################################
@@ -116,7 +117,7 @@ def output_to_csv(*argv):
 def console_interface(test_results):
     print("\n\nEnter an array to display(1 - 9) or q to quit\n")
     while True:
-        user_in = input(" ->  ")
+        user_in = input("->  ")
         try:
             if user_in == 'q':
                 print("Exiting ... \n")
