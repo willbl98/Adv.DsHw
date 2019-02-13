@@ -15,6 +15,9 @@ NUM_RUNS = 9  # number of test arrays created.  size determined by ARRAY_SIZE * 
 
 # Outputs stats of algorithm time execution tests
 def main():
+    # set screen buffer to allow displaying the larger arrays
+    os.system('mode con: cols=80 lines=12000')
+
     print("Creating Arrays ... ", end="")
     test_results = run_tests(ARRAY_SIZE, NUM_RUNS)
     print("Done.\n\nSaving results to file ... ", end="")
@@ -131,22 +134,21 @@ def output_to_csv(*argv):
 
 # interface for user to request sorted and unsorted arrays of the test runs
 def console_interface(test_results):
-    print("\n\nEnter an array to display(1 - 9) or q to quit\n")
     while True:
+        print("\nEnter an array to display(1 - 9) or q to quit\n")
         user_in = input("->  ")
         try:
             if user_in == 'q':
                 print("Exiting ... \n")
                 break
-            print("%-12s %-22s %-22s" % ("Index", "Unsorted", "Sorted"))
+            print("%-2s %-12s %-22s %-22s" % (" ", "Index", "Unsorted", "Sorted"))
             ctr = 0
             index = int(user_in) - 1
             # Display unsorted and sorted arrays side by side along with their index
             # e.g. -> INDEX   UNSORTED   SORTED
             for unsorted_arr, sorted_arr in zip(test_results[index].unsorted_arr, test_results[index].sorted_arr):
-                print("%-12s %-22s %-22s" % (ctr, unsorted_arr, sorted_arr))
+                print("%-2s %-12s %-22s %-22s" % (" ", ctr, unsorted_arr, sorted_arr))
                 ctr += 1
-            print()
         except:
             print("Invalid input: ", user_in, "\n")
 
