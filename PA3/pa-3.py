@@ -11,24 +11,27 @@ FIB_NUMS = [19, 20, 30, 35, 40, 45, 50, 55]
 
 # FILENAME and HEADER used during csv generation
 FILENAME = "Fibonacci_Time.csv"
-HEADERS = ["n", "F(n)", "T1: Recursive Algorithm (ms)", "T2: DP Algorithm (ms)", "(2^n)/n", "T1/T2"]
+HEADERS = ["n", "F(n)", "T1: Recursive Algorithm (s)", "T2: DP Algorithm (ms)", "(2^n)/n", "T1/T2"]
 
 DYNAMIC_PROG_MAP = {0: 1, 1: 1}  # initialize a dict to map calculated results for DP Fib calculations
 
 
 def main():
+    # Begin interactive session with user to calculate Fibonacci numbers
     console_interface()
 
-    print("Perform new calculations for the assigned PA values and save to file?\n"
-          "Assigned Values: 19, 20, 30, 35, 40, 45, 50, 55\nCAUTION! Takes LONG Time [y/n]  ", end="")
+    print("Perform new calculations for the assigned PA values and save to file?\nAssigned Values:", FIB_NUMS,
+          "\nCAUTION! Takes LONG Time [y/n]  ", end="")
     user_in = input("")
     if user_in == 'y':
-        results = run_tests()
-        print("\n\nSaving File ... ", end="")
-        output_to_csv(FILENAME, HEADERS, results)
+        print()
+        results = run_tests()  # find Fib numbers and time calculations
+        print("Saving File ... ", end="")
+        output_to_csv(FILENAME, HEADERS, results)  # save results
         print("Done.\nFile saved to " + os.getcwd() + "\\" + FILENAME)
     else:
         print("\n\nExiting Program")
+
 
 ########################################################################################################################
 #  Classes
@@ -45,15 +48,16 @@ class TestResults(object):
         :param n: number who's Fibonacci value is being calculated
         :type: int
         """
+
     def __init__(self, fib_num, time_rec, time_dp, n):
         self.fib_num = fib_num
-        self.time_rec = time_rec
-        self.time_dp = time_dp
+        self.time_rec = time_rec  # will be measured in seconds
+        self.time_dp = time_dp  # will be measured in mseconds
         self.n = n
         self.val1 = math.pow(2, n) / 2  # value of 2^n/n
-        self.val2 = '%0.E' % Decimal(self.time_rec / self.time_dp)  # t1/t2 rounded used sci-notation
+        self.val2 = '%0.E' % Decimal((self.time_rec * 1000) / self.time_dp)  # t1/t2 rounded used sci-notation
 
-    # help for csv output
+    # helper for csv output
     def to_string(self):
         return str(self.n), str(self.fib_num), str(self.time_rec), str(self.time_dp), str(self.val1), str(self.val2)
 
@@ -70,10 +74,13 @@ def recur_fib(num):
 
 # Calculates Fibonacci Number using Dynamic Programming
 # Results of calculations saved to the DYNAMIC_PROG_MAP dictionary
-def dp_fib(num):
-    for i in range(2, num + 1):
-        DYNAMIC_PROG_MAP[i] = DYNAMIC_PROG_MAP[i - 1] + DYNAMIC_PROG_MAP[i - 2]
-    return DYNAMIC_PROG_MAP[num]
+def dp_fib(num, fib_map):
+    # Use existing keys. If a key does not exist, calculate its Fib number
+    if num not in fib_map:
+        # Start at index 2, since 0 & 1 are already initialized
+        for i in range(2, num + 1):
+            fib_map[i] = fib_map[i - 1] + fib_map[i - 2]
+    return fib_map[num]
 
 
 ########################################################################################################################
@@ -81,11 +88,17 @@ def dp_fib(num):
 ########################################################################################################################
 # Measures execution time of each merge sort and saves results to an array of MergeSortResult objects
 # Returns the Fib value and time as a tuple
-def calc_time(alg, num):
-    start_time = timeit.default_timer()  # start time measure
-    fib_num = alg(num)
-    stop_time = timeit.default_timer()  # end time measure
-    return fib_num, (stop_time - start_time) * 1000
+def calc_time(alg, num, fib_map=None):
+    if fib_map:
+        start_time = timeit.default_timer()  # start time measure
+        fib_num = alg(num, fib_map)
+        stop_time = timeit.default_timer()  # end time measure
+        return fib_num, (stop_time - start_time) * 1000
+    else:
+        start_time = timeit.default_timer()  # start time measure
+        fib_num = alg(num)
+        stop_time = timeit.default_timer()  # end time measure
+        return fib_num, (stop_time - start_time)
 
 
 # Loops over the FIB_NUM array and calculates the Fibonacci number of each using Recursion and DP
@@ -95,7 +108,7 @@ def run_tests():
     for i in FIB_NUMS:
         recur_results = calc_time(recur_fib, i),  # recursion time
         print("Recursive Alg complete for: ", i, " with val of: ", recur_results[0][0])
-        dp_results = calc_time(dp_fib, i),  # dp time
+        dp_results = calc_time(dp_fib, i, DYNAMIC_PROG_MAP),  # dp time
         print("DP Alg complete for: ", i, " with val of: ", dp_results[0][0], "\n")
 
         # Extract values from tuples
@@ -135,13 +148,13 @@ def console_interface():
                 break
             # Ask for value to find
             elif user_in == 'R':
-                print("\nEnter a Number\n")
+                print("Enter a Number", end="\t")
                 user_in = input("->  ")
                 print(recur_fib(int(user_in)))
             elif user_in == 'D':
-                print("\nEnter a Number\n")
+                print("Enter a Number", end="\t")
                 user_in = input("->  ")
-                print(dp_fib(int(user_in)))
+                print(dp_fib(int(user_in), DYNAMIC_PROG_MAP))
         except:
             print("Invalid input: ", user_in, "\n")
 
