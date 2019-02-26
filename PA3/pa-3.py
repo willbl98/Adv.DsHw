@@ -151,11 +151,11 @@ def console_interface():
             elif user_in == 'R':
                 print("Enter a Number", end="\t")
                 user_in = input("->  ")
-                print(recur_fib(int(user_in)))
+                print("Fibonacci(", user_in, ") = ", recur_fib(int(user_in)))
             elif user_in == 'D':
                 print("Enter a Number", end="\t")
                 user_in = input("->  ")
-                print(dp_fib(int(user_in), DYNAMIC_PROG_MAP))
+                print("Fibonacci(", user_in, ") = ", dp_fib(int(user_in), DYNAMIC_PROG_MAP))
         except:
             print("Invalid input: ", user_in, "\n")
 
