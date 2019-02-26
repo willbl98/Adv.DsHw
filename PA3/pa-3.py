@@ -17,10 +17,18 @@ DYNAMIC_PROG_MAP = {0: 1, 1: 1}  # initialize a dict to map calculated results f
 
 
 def main():
-    output_to_csv(FILENAME, HEADERS, run_tests())
-    print("Done.\nFile saved to " + os.getcwd() + "\\" + FILENAME)
     console_interface()
 
+    print("Perform new calculations for the assigned PA values and save to file?\n"
+          "Assigned Values: 19, 20, 30, 35, 40, 45, 50, 55\nCAUTION! Takes LONG Time [y/n]  ", end="")
+    user_in = input("")
+    if user_in == 'y':
+        results = run_tests()
+        print("\n\nSaving File ... ", end="")
+        output_to_csv(FILENAME, HEADERS, results)
+        print("Done.\nFile saved to " + os.getcwd() + "\\" + FILENAME)
+    else:
+        print("\n\nExiting Program")
 
 ########################################################################################################################
 #  Classes
@@ -86,7 +94,9 @@ def run_tests():
     results = []
     for i in FIB_NUMS:
         recur_results = calc_time(recur_fib, i),  # recursion time
+        print("Recursive Alg complete for: ", i, " with val of: ", recur_results[0][0])
         dp_results = calc_time(dp_fib, i),  # dp time
+        print("DP Alg complete for: ", i, " with val of: ", dp_results[0][0], "\n")
 
         # Extract values from tuples
         fib = dp_results[0][0]
@@ -121,7 +131,7 @@ def console_interface():
         user_in = input("->  ")
         try:
             if user_in == 'q':
-                print("Exiting ... \n")
+                print("Exiting Interactive Fibonacci Calculation \n")
                 break
             # Ask for value to find
             elif user_in == 'R':
