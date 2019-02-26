@@ -9,11 +9,12 @@ from decimal import Decimal  # used for scientific notation
 # Values to be tested
 FIB_NUMS = [19, 20, 30, 35, 40, 45, 50, 55]
 
+# Initialize a dict to map calculated results for DP Fib calculations
+DYNAMIC_PROG_MAP = {0: 1, 1: 1}
+
 # FILENAME and HEADER used during csv generation
 FILENAME = "Fibonacci_Time.csv"
 HEADERS = ["n", "F(n)", "T1: Recursive Algorithm (s)", "T2: DP Algorithm (ms)", "(2^n)/n", "T1/T2"]
-
-DYNAMIC_PROG_MAP = {0: 1, 1: 1}  # initialize a dict to map calculated results for DP Fib calculations
 
 
 def main():
