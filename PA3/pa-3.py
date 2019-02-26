@@ -1,5 +1,4 @@
 import os
-import random
 import timeit
 import math
 from decimal import Decimal  # used for scientific notation
@@ -106,17 +105,6 @@ def console_interface():
                 print(dp(int(user_in)))
         except:
             print("Invalid input: ", user_in, "\n")
-
-
-########################################################################################################################
-#  Helpers
-########################################################################################################################
-# Help function which creates the random array of test inputs
-def create_random_array(array_length, rand_min, rand_max):
-    rand = []
-    for num in range(array_length):
-        rand.append(random.randint(rand_min, rand_max))
-    return rand
 
 
 ########################################################################################################################
