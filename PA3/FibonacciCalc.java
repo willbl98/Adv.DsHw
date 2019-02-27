@@ -14,10 +14,7 @@ public class FibonacciCalc {
     private static final int[] FIB_NUMS = {10, 20, 30, 35, 40, 45};
 
     // Init associative array (hashmap) for dp
-    private static final Map<Integer, Long> DYNAMIC_PROG_MAP = new HashMap<>(Map.ofEntries(
-            entry(0, (long) 1),
-            entry(1, (long) 1)
-    ));
+    private static final Map<Integer, Long> DYNAMIC_PROG_MAP = new HashMap<>();
 
     // CSV info
     private static final String FILENAME = "Fibonacci_Time.csv";
@@ -26,6 +23,9 @@ public class FibonacciCalc {
 
     // Run
     public static void main(String[] args) {
+        //initialize DYNAMIC_PROG_MAP
+        initDPArray();
+        
         // Start interactive console with user
         fibConsole();
 
@@ -127,6 +127,12 @@ public class FibonacciCalc {
                         + num + " was: " + seconds + " seconds.\n\n");
             }
         }
+    }
+
+    //initialize DYNAMIC_PROG_MAP
+    private static void initDPArray() {
+        DYNAMIC_PROG_MAP.put(0, (long) 1);
+        DYNAMIC_PROG_MAP.put(1, (long) 1);
     }
 
     // Allow passing fib alg by reference to calcTime
