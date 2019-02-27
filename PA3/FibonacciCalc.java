@@ -24,7 +24,7 @@ public class FibonacciCalc {
     // CSV info
     private static final String FILENAME = "Fibonacci_Time.csv";
     private static final String[] HEADERS = {
-            "n", "F(n)", "T1: Recursive Algorithm (s)", "T2: DP Algorithm (ms)", "(2^n)/n", "T1/T2"};
+            "n", "F(n)", "T1: Recursive Algorithm (ns)", "T2: DP Algorithm (ns)", "(2^n)/n", "T1/T2"};
 
     // Run
     public static void main(String[] args) {
