@@ -1,6 +1,8 @@
 // Robert Allen, William Blackwell, Bradley Sutton
 // Implements recursive and dynamic programming versions of Fibonacci algorithm
 
+// *Note: File is name PA_3_Source instead of PA-3-Source because '-' is an illegal character in a Java class name
+
 import helperclasses.Algorithm;
 import helperclasses.AlgorithmResult;
 import helperclasses.TestResult;
@@ -9,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class PA3 {
+public class PA_3_Source {
 
     // Values assigned for testing
     private static final int[] FIB_TEST_VALUES = {10, 20, 30, 35, 40, 45, 50, 55};
@@ -64,9 +66,14 @@ public class PA3 {
     private static ArrayList<TestResult> runTests() {
         ArrayList<TestResult> results = new ArrayList<>();
         for (int i : FIB_TEST_VALUES) {
-            AlgorithmResult recursiveTest = calcTime(PA3::fibRecursive, i);
-            AlgorithmResult dynamicTest = calcTime(PA3::fibDynamic, i);
+            AlgorithmResult recursiveTest = calcTime(PA_3_Source::fibRecursive, i);
+            System.out.println("Recursive:");
+            displayResult(i, recursiveTest);
+
+            AlgorithmResult dynamicTest = calcTime(PA_3_Source::fibDynamic, i);
             results.add(new TestResult(dynamicTest.getFibNum(), recursiveTest.getTime(), dynamicTest.getTime(), i));
+            System.out.println("Dynamic Programming:");
+            displayResult(i, dynamicTest);
         }
         return results;
     }
@@ -121,11 +128,11 @@ public class PA3 {
 
             // Recursion
             if (algType.equalsIgnoreCase("R")) {
-                displayResult(num, calcTime(PA3::fibRecursive, num));
+                displayResult(num, calcTime(PA_3_Source::fibRecursive, num));
             }
             // Dynamic
             else if (algType.equalsIgnoreCase("D")) {
-                displayResult(num, calcTime(PA3::fibDynamic, num));
+                displayResult(num, calcTime(PA_3_Source::fibDynamic, num));
             }
         }
     }
