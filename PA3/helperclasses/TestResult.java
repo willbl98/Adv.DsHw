@@ -14,7 +14,7 @@ public class TestResult {
         this.time_rec = time_rec;
         this.time_dp = time_dp;
         this.n = n;
-        this.val1 = Math.pow(2, n);
+        this.val1 = (Math.pow(2, n))/2;
         this.val2 = (double)time_rec / time_dp;
     }
 
