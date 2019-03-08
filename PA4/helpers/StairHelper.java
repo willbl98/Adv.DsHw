@@ -1,4 +1,4 @@
-package edu.advalg;
+package edu.advalg.helpers;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ public class StairHelper {
         position = 0;
     }
 
-    StairHelper(int startingPosition) {
+    public StairHelper(int startingPosition) {
         position = startingPosition;
     }
 
@@ -22,7 +22,7 @@ public class StairHelper {
         position = newPosition;
     }
 
-    void addPossibility(ArrayList<Integer> newPossibility) {
+    public void addPossibility(ArrayList<Integer> newPossibility) {
         possibilities.add(newPossibility);
     }
 
@@ -30,7 +30,7 @@ public class StairHelper {
         return possibilities.get(posPosition);
     }
 
-    ArrayList<ArrayList<Integer>> returnAll() {
+    public ArrayList<ArrayList<Integer>> returnAll() {
         return possibilities;
     }
 }

@@ -1,11 +1,13 @@
 package edu.advalg;
 
+import edu.advalg.helpers.StairHelper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 
-public class StairCase {
+public class PA_4_Source {
 
 
     private static StairHelper[] countOptions(int totalSteps, int[] stepSizes) {
