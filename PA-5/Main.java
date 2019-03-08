@@ -16,7 +16,6 @@ public class Main extends Application {
         fxmlLoader.setController(controller);
         Parent layout = fxmlLoader.load();
         Scene scene = new Scene(layout);
-        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

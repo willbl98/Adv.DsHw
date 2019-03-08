@@ -1,11 +1,12 @@
 package pa5;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
@@ -15,8 +16,22 @@ import java.util.ResourceBundle;
 class Controller implements Initializable {
     private final TableView<Task> f_tasks = new TableView<>();
 
+    private Schedule schedule;
+
     @FXML
-    private VBox table;
+    private VBox _tableView_tasks;
+
+    @FXML
+    private TextField _textField_name;
+
+    @FXML
+    private TextField _textField_value;
+
+    @FXML
+    private TextField _textField_duration;
+
+    @FXML
+    private Button _button_addTask;
 
     private TableView<Task> updateTable(TableView<Task> tableView, ObservableList<Task> tasks) {
 
@@ -26,36 +41,30 @@ class Controller implements Initializable {
         TableColumn<Task, String> value = new TableColumn<>("Value");
         value.setCellValueFactory(new PropertyValueFactory<>("value"));
 
-        TableColumn<Task, String> start = new TableColumn<>("Value");
-        start.setCellValueFactory(new PropertyValueFactory<>("value"));
-
-        TableColumn<Task, String> end = new TableColumn<>("Value");
-        end.setCellValueFactory(new PropertyValueFactory<>("value"));
+        TableColumn<Task, String> duration = new TableColumn<>("Duration");
+        duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
 
         tableView.setItems(tasks);
-        tableView.setEditable(true);
 
         tableView.getColumns().add(name);
         tableView.getColumns().add(value);
-        tableView.getColumns().add(start);
-        tableView.getColumns().add(end);
+        tableView.getColumns().add(duration);
 
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         return tableView;
     }
 
-    private ObservableList<Task> createDummyList() {
-        ObservableList<Task> tasks = FXCollections.observableArrayList();
-        for (int i = 0; i < 20; i++) {
-            tasks.add(new Task(String.valueOf(i), i, i, i));
-        }
-        return tasks;
+    private void addTask() {
+        Task newTask = new Task(_textField_name.getText(), Integer.parseInt(_textField_value.getText()),
+                Integer.parseInt(String.valueOf(_textField_duration.getText())));
+        schedule.addTask(newTask);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<Task> cat = createDummyList();
-        table.getChildren().addAll(updateTable(f_tasks, cat));
+        _button_addTask.setOnAction(e -> addTask());
+        schedule = new Schedule();
+        _tableView_tasks.getChildren().addAll(updateTable(f_tasks, schedule.getTasks()));
     }
 }
