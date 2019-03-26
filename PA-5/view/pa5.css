@@ -1,0 +1,113 @@
+/* Themed elements for GUI */
+
+/* Background color and font for main window */
+.root {
+    -fx-background-color: #f9f9f9;
+    -fx-font-family: "Ubuntu";
+}
+
+/* Color for table border and background*/
+.table-view {
+    -fx-background-color: #424242;
+    -fx-table-cell-border-color: #616161;
+}
+
+/* Color of highlighted table row */
+.table-view:focused {
+    -fx-background-color: transparent;
+}
+
+/* Color for table headers */
+.table-view .column-header-background {
+    -fx-background-color: #bdd1e2;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: #bdd1e2;
+}
+
+/* Color for table headers elements containing the header text */
+.table-view .column-header-background .label {
+    -fx-background-color: #bdd1e2;
+    -fx-text-fill: black;
+}
+
+/* Make the header dividers invisible */
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+/* Make the column row dividers invisible */
+.table-view .table-cell {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-table-cell-border-color: transparent;
+}
+
+/* background color of odd numbered rows */
+.table-row-cell:odd {
+    -fx-background-color: -fx-table-cell-border-color, #dadada;
+}
+
+/* background color of even numbered rows */
+.table-row-cell {
+    -fx-background-color: -fx-table-cell-border-color, #eeeeee;
+}
+
+/* background color of selected row */
+.table-row-cell:selected {
+    -fx-background-color: #6abed8;
+}
+
+
+/* Color of ScrollPane bar */
+.table-view .scroll-bar:vertical {
+    -fx-background-color: #424141;
+}
+
+/* Background color ScrollPane */
+.scroll-pane .viewport {
+    -fx-background-color: #f9f9f9;
+}
+
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Buttons for GUI */
+.pa5-button {
+    -fx-background-color: #a9cff1;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-scale: 8px;
+}
+
+/* Change color when pressed to provide user feedback */
+.button:pressed {
+    -fx-background-color: #ef6c00;
+}
+
+/* Field for user input */
+.text-field {
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.8), 2, 0, 0, 0);
+}

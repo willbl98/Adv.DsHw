@@ -1,6 +1,10 @@
-package pa5.helpers.model;
+package pa5.model;
 
-@SuppressWarnings("WeakerAccess")
+/**
+ * Represents a user specified Task to be completed.  Tasks have a name, a value/profit, and a start and end time.
+ *
+ * Start and End time should follow the format of: 0,1,2,3... etc. not 0:00, 1:00, 2:00...
+ */
 public class Task {
     private final String name;
     private final int value;
@@ -30,6 +34,7 @@ public class Task {
         return end;
     }
 
+    // Compares end times when sorting tasks
     public int compareEndTime(Task task) {
         return Integer.compare(task.getEnd(), getEnd());
     }

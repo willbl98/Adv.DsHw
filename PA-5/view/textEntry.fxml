@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<!-- Window allow 'bulk' task entry in csv format: taskname,taskvalue,taskstarttime,taskendtime -->
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+            prefWidth="300.0" stylesheets="@pa5.css" xmlns="http://javafx.com/javafx/8.0.192"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <ScrollPane hbarPolicy="ALWAYS" prefHeight="400.0" prefWidth="600.0" vbarPolicy="ALWAYS"
+                    BorderPane.alignment="CENTER">
+            <TextArea fx:id="_textArea_input" focusTraversable="false" prefHeight="300.0" prefWidth="300.0"/>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button fx:id="_button_addAll" mnemonicParsing="false" styleClass="pa5-button" stylesheets="@pa5.css"
+                    text="Add All">
+                <HBox.margin>
+                    <Insets right="20.0"/>
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>
