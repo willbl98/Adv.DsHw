@@ -1,19 +1,19 @@
-package pa5.controller;
+package pa5.helpers.controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pa5.Main;
+import pa5.PA_5_Source;
 
 import java.io.IOException;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class Controller {
-    protected Main _main;
+    protected PA_5_Source _PA5Source;
 
-    public void setMain(Main main) {
-        _main = main;
+    public void setMain(PA_5_Source PA5Source) {
+        _PA5Source = PA5Source;
     }
 
     public static String getProgramPath() {

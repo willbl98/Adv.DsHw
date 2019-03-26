@@ -1,4 +1,4 @@
-package pa5.model;
+package pa5.helpers.model;
 
 @SuppressWarnings("WeakerAccess")
 public class Task {
@@ -28,6 +28,10 @@ public class Task {
 
     public int getEnd() {
         return end;
+    }
+
+    public int compareEndTime(Task task) {
+        return Integer.compare(task.getEnd(), getEnd());
     }
 
     @Override

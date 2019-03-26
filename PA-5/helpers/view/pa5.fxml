@@ -65,6 +65,7 @@
             <opaqueInsets>
                 <Insets/>
             </opaqueInsets>
+            <Button fx:id="_button_sort" focusTraversable="false" mnemonicParsing="false" text="Sort Tasks"/>
             <Button fx:id="_button_calc" focusTraversable="false" mnemonicParsing="false" text="Calculate Efficiency">
                 <HBox.margin>
                     <Insets right="20.0"/>

@@ -1,5 +1,7 @@
-package pa5.controller;
+package pa5.helpers.controller;
 
+import pa5.PA_5_Source;
+import pa5.helpers.model.Task;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import pa5.model.Task;
-import pa5.model.ToDoList;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class MainUICtrl extends Controller implements Initializable {
     private final TableView<Task> f_tasks = new TableView<>();
 
-    private ToDoList toDoList;
+    private PA_5_Source.ToDoList toDoList;
 
     @FXML
     private VBox _tableView_tasks;
@@ -44,6 +44,10 @@ public class MainUICtrl extends Controller implements Initializable {
 
     @FXML
     private Button _button_calc;
+
+    @FXML
+    private Button _button_sort;
+
     private Stage _stage;
 
     private TableView<Task> updateTable(TableView<Task> tableView, ObservableList<Task> tasks) {
@@ -116,6 +120,7 @@ public class MainUICtrl extends Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         _button_addTask.setOnAction(e -> addTask());
         _button_removeTask.setOnAction(e -> removeTask());
+        _button_sort.setOnAction(e -> toDoList.sortList());
         _button_calc.setOnAction(e -> {
             try {
                 displayResults();
@@ -123,7 +128,7 @@ public class MainUICtrl extends Controller implements Initializable {
                 e1.printStackTrace();
             }
         });
-        toDoList = new ToDoList();
+        toDoList = new PA_5_Source.ToDoList();
         _tableView_tasks.getChildren().addAll(updateTable(f_tasks, toDoList.getTasks()));
         f_tasks.setFocusTraversable(false);
         _textField_name.setStyle("-fx-focus-color: transparent;");

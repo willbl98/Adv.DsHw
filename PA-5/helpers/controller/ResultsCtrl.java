@@ -1,12 +1,12 @@
-package pa5.controller;
+package pa5.helpers.controller;
 
+import pa5.PA_5_Source;
+import pa5.helpers.model.Schedule;
+import pa5.helpers.model.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import pa5.model.Schedule;
-import pa5.model.Task;
-import pa5.model.ToDoList;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,12 +14,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class ResultsCtrl extends Controller implements Initializable {
-    private final ToDoList toDoList;
+    private final PA_5_Source.ToDoList toDoList;
 
     @FXML
     private TextArea _textArea_output;
 
-    ResultsCtrl(ToDoList toDoList) {
+    ResultsCtrl(PA_5_Source.ToDoList toDoList) {
         this.toDoList = toDoList;
     }
 
@@ -49,6 +49,7 @@ public class ResultsCtrl extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        toDoList.sortList();
         outputMax();
         outputAllLegitimate();
     }
