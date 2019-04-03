@@ -57,7 +57,7 @@ public class Controller implements Initializable {
         _textArea_output.clear();
         _textArea_output.appendText("Optimum Score: "+ nodeMatrix.findMaxScore() + "\n");
         _textArea_output.appendText("Optimum Sequences:\n");
-        for (ArrayList<SequencePair> sequencePairs : nodeMatrix.getOptimumSequences()) {
+        for (ArrayList<SequencePair> sequencePairs : nodeMatrix.getOptimumSequenceAlignments()) {
             for (SequencePair sequencePair : sequencePairs) {
                 _textArea_output.appendText(sequencePair.getColLetter());
             }

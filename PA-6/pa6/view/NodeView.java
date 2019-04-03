@@ -12,9 +12,9 @@ import javafx.scene.shape.Rectangle;
 class NodeView extends StackPane {
     @SuppressWarnings("FieldCanBeLocal")
     private final double SQUARE_SIZE = 60.0; // rectangle size
-    private final Label labelLeftArrow = new Label("▶ ");
-    private final Label labelDownArrow = new Label("▾");
-    private final Label labelDiagonalArrow = new Label("◢ ");
+    private final Label _labelLeftArrow = new Label("▶ ");
+    private final Label _labelDownArrow = new Label("▾");
+    private final Label _labelDiagonalArrow = new Label("◢ ");
     final Rectangle _rectangle;
 
     NodeView(Node node) {
@@ -25,12 +25,12 @@ class NodeView extends StackPane {
         BorderPane _borderPane = new BorderPane();
 
         // Right container of the BorderPane
-        labelLeftArrow.setVisible(false); // Set as invisible by default and show when needed
-        labelLeftArrow.getStyleClass().add("arrow");
+        _labelLeftArrow.setVisible(false); // Set as invisible by default and show when needed
+        _labelLeftArrow.getStyleClass().add("arrow");
         VBox borderPaneRight = new VBox();
         borderPaneRight.setAlignment(Pos.CENTER_RIGHT);
         borderPaneRight.setPrefWidth(15);
-        borderPaneRight.getChildren().add(labelLeftArrow);
+        borderPaneRight.getChildren().add(_labelLeftArrow);
         _borderPane.setRight(borderPaneRight);
 
         // BorderPane Left
@@ -39,20 +39,20 @@ class NodeView extends StackPane {
         _borderPane.setLeft(borderPaneLeft);
 
         // Bottom Container: left half
-        labelDownArrow.setVisible(false); // Set as invisible by default and show when needed
-        labelDownArrow.getStyleClass().add("arrow");
+        _labelDownArrow.setVisible(false); // Set as invisible by default and show when needed
+        _labelDownArrow.getStyleClass().add("arrow");
         HBox bottomDown = new HBox();
         bottomDown.setAlignment(Pos.BOTTOM_RIGHT);
         bottomDown.setPrefWidth(34.0);
-        bottomDown.getChildren().add(labelDownArrow);
+        bottomDown.getChildren().add(_labelDownArrow);
 
         // Bottom right half of the the BorderPane
-        labelDiagonalArrow.setVisible(false); // Set as invisible by default and show when needed
-        labelDiagonalArrow.getStyleClass().add("arrow");
+        _labelDiagonalArrow.setVisible(false); // Set as invisible by default and show when needed
+        _labelDiagonalArrow.getStyleClass().add("arrow");
         HBox bottomDiag = new HBox();
         bottomDiag.setAlignment(Pos.BOTTOM_RIGHT);
         bottomDiag.setPrefWidth(26.0);
-        bottomDiag.getChildren().add(labelDiagonalArrow);
+        bottomDiag.getChildren().add(_labelDiagonalArrow);
 
         // Complete Bottom
         HBox borderPaneBottom = new HBox();
@@ -81,14 +81,14 @@ class NodeView extends StackPane {
 
 
     void showLeftArrow() {
-        labelLeftArrow.setVisible(true);
+        _labelLeftArrow.setVisible(true);
     }
 
     void showDownArrow() {
-        labelDownArrow.setVisible(true);
+        _labelDownArrow.setVisible(true);
     }
 
     void showDiagonalArrow() {
-        labelDiagonalArrow.setVisible(true);
+        _labelDiagonalArrow.setVisible(true);
     }
 }

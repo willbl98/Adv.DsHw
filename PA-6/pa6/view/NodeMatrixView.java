@@ -10,21 +10,21 @@ import java.util.Objects;
 
 public class NodeMatrixView {
 
-    private final GridPane gridPane;
+    private final GridPane _gridPane;
     private final NodeMatrix _nodeMatrix;
 
     public NodeMatrixView(NodeMatrix nodeMatrix) {
         _nodeMatrix = nodeMatrix;
-        gridPane = new GridPane();
-        gridPane.setCache(true);
-        gridPane.setCacheHint(CacheHint.SPEED);
+        _gridPane = new GridPane();
+        _gridPane.setCache(true);
+        _gridPane.setCacheHint(CacheHint.SPEED);
         createMatrixView();
-        gridPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        gridPane.getStyleClass().add("matrixview");
+        _gridPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        _gridPane.getStyleClass().add("matrixview");
     }
 
     private void createMatrixView() {
-        gridPane.getChildren().clear();
+        _gridPane.getChildren().clear();
         for (int row = 0; row < _nodeMatrix.getRowSize(); row++) {
             for (int col = 0; col < _nodeMatrix.getColSize(); col++) {
                 addNodeView(_nodeMatrix.getNode(row, col));
@@ -33,11 +33,11 @@ public class NodeMatrixView {
     }
 
     private void addNodeView(Node node) {
-        gridPane.add(nodeViewFactory(node), node.getCol(), node.getRow());
+        _gridPane.add(nodeViewFactory(node), node.getCol(), node.getRow());
     }
 
     private NodeView getNodeViewNode(int col, int row) {
-        for (javafx.scene.Node node : gridPane.getChildren()) {
+        for (javafx.scene.Node node : _gridPane.getChildren()) {
             if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
                 return (NodeView) node;
             }
@@ -86,6 +86,6 @@ public class NodeMatrixView {
     }
 
     public GridPane getGridPane() {
-        return gridPane;
+        return _gridPane;
     }
 }

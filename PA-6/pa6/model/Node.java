@@ -19,7 +19,7 @@ public class Node {
     // Values used during visual representation.  _letter is the character or value that is seen on each square
     private String _letter;
     // Marks a node as part of the final solution or a placeholder for the visual presentation
-    private NodeType type;
+    private NodeType _type;
 
     // 'Main' nodes that are used during calculation
     Node(int value, int row, int col) {
@@ -64,23 +64,23 @@ public class Node {
     }
 
     public NodeType getType() {
-        return type;
+        return _type;
     }
 
     void setOptimumType() {
-        type = NodeType.OPTIMUM;
+        _type = NodeType.OPTIMUM;
     }
 
     // Determine Node type based on location in the matrix
     private void initType(int row, int col) {
         if (row > 0 && col > 0) {
-            type = NodeType.NORMAL;
+            _type = NodeType.NORMAL;
         } else if (row == 0 && col > 1) {
-            type = NodeType.COL_LETTER;
+            _type = NodeType.COL_LETTER;
         } else if (col == 0 && row > 1) {
-            type = NodeType.ROW_LETTER;
+            _type = NodeType.ROW_LETTER;
         } else {
-            type = NodeType.EXTRA;
+            _type = NodeType.EXTRA;
         }
     }
 

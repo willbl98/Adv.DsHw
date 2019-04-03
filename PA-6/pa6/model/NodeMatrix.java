@@ -14,17 +14,17 @@ public class NodeMatrix {
     private int _mismatch;
     private int _gap;
 
-    private final ArrayList<ArrayList<SequencePair>> optimumSequences;
+    private final ArrayList<ArrayList<SequencePair>> _optimumSequenceAlignments;
 
     public NodeMatrix(int match, int mismatch, int gap) {
         _match = match;
         _mismatch = mismatch;
         _gap = gap;
-        optimumSequences = new ArrayList<>();
+        _optimumSequenceAlignments = new ArrayList<>();
     }
 
-    public ArrayList<ArrayList<SequencePair>> getOptimumSequences() {
-        return optimumSequences;
+    public ArrayList<ArrayList<SequencePair>> getOptimumSequenceAlignments() {
+        return _optimumSequenceAlignments;
     }
 
     public Node getNode(int i, int j) {
@@ -84,7 +84,8 @@ public class NodeMatrix {
         }
     }
 
-    // Traverse Matrix and determine best score using the provided match, mismatch and gap values
+    // Traverse Matrix and determine best score using the provided match, mismatch and gap values using the
+    // dynamic programming algorithm discussed in class
     private void assignValues() {
         for (int i = 2; i < _dpMatrix.length; i++) {
             for (int j = 2; j < _dpMatrix[0].length; j++) {
@@ -126,7 +127,11 @@ public class NodeMatrix {
         }
     }
 
-    // Compares node scores and their origins.  Allows ties
+    /**
+     * Compares node scores and their origins.  Allows ties
+     * @param parentNodes List of ParentNode objects whose node vlaue fields will be compared to find the highest score
+     * @return List of parent nodes with the highest score
+     */
     private ArrayList<ParentNode> findMaxValue(List<ParentNode> parentNodes) {
         ArrayList<ParentNode> bestMatches = new ArrayList<>();
         int max = Integer.MIN_VALUE;
@@ -147,40 +152,53 @@ public class NodeMatrix {
     private void findOptimumSolution() {
         _dpMatrix[_dpMatrix.length - 1][_dpMatrix[0].length - 1].setOptimumType();
         Node node = _dpMatrix[_dpMatrix.length - 1][_dpMatrix[0].length - 1];
-        backTracking(node, new ArrayList<>());
+        backTrack(node, new ArrayList<>());
     }
 
     // Backtrack through the Dynamic Programming Matrix to collect the final solution(s)
-    private void backTracking(Node node, ArrayList<SequencePair> pairs) {
+    // When the end of the matrix is reached each the sequenceAlignment list is updated
+    private void backTrack(Node node, ArrayList<SequencePair> pairs) {
         if (getNode(node.getRow(), node.getCol()).getParentOrigin().containsKey(Direction.LEFT)) {
             Node parent = _dpMatrix[node.getRow()][node.getCol()].getParentOrigin().get(Direction.LEFT);
             SequencePair sequencePair = new SequencePair(Direction.LEFT, _row[node.getRow() - 2], _col[node.getCol() - 2]);
-            backTracking(parent, getOptimumNodes(parent, sequencePair, pairs));
+            backTrack(parent, determineSequencePair(parent, sequencePair, pairs));
         }
         if (getNode(node.getRow(), node.getCol()).getParentOrigin().containsKey(Direction.UP)) {
             Node parent = _dpMatrix[node.getRow()][node.getCol()].getParentOrigin().get(Direction.UP);
             SequencePair sequencePair = new SequencePair(Direction.UP, _row[node.getRow() - 2], _col[node.getCol() - 2]);
-            backTracking(parent, getOptimumNodes(parent, sequencePair, pairs));
+            backTrack(parent, determineSequencePair(parent, sequencePair, pairs));
         }
         if (getNode(node.getRow(), node.getCol()).getParentOrigin().containsKey(Direction.DIAG)) {
             Node parent = _dpMatrix[node.getRow()][node.getCol()].getParentOrigin().get(Direction.DIAG);
             SequencePair sequencePair = new SequencePair(Direction.DIAG, _row[node.getRow() - 2], _col[node.getCol() - 2]);
-            backTracking(parent, getOptimumNodes(parent, sequencePair, pairs));
+            backTrack(parent, determineSequencePair(parent, sequencePair, pairs));
         }
         if (hasReachedEnd(node)) {
-            optimumSequences.add(pairs);
+            _optimumSequenceAlignments.add(pairs);
         }
     }
 
-    // Add previously backtracked nodes to the current solution
-    private ArrayList<SequencePair> getOptimumNodes(Node node, SequencePair sequencePair, ArrayList<SequencePair> nodes) {
-        _dpMatrix[node.getRow()][node.getCol()].setOptimumType();
-        ArrayList<SequencePair> updatedSequences = new ArrayList<>(nodes);
+    /**
+     * Add previously backtracked nodes to the current solution
+     * @param parent The current nodes parent during backtracking
+     * @param sequencePair The current sequence pairs for the alignment
+     * @param sequencePairs Previously determined sequences pairs for the alignment
+     * @return an updated list containing all current sequence pairs to be used in the next backtracking step
+     */
+    private ArrayList<SequencePair> determineSequencePair(Node parent,
+                                                          SequencePair sequencePair,
+                                                          ArrayList<SequencePair> sequencePairs) {
+        _dpMatrix[parent.getRow()][parent.getCol()].setOptimumType();
+        ArrayList<SequencePair> updatedSequences = new ArrayList<>(sequencePairs);
         updatedSequences.add(0, sequencePair);
         return updatedSequences;
     }
 
-    // Returns true when the end of the scoring matrix has been reached
+    /**
+     * Returns true when the end of the scoring matrix has been reached
+     * @param node current node placement in the DP matrix
+     * @return true if the end matrix boundary has been reached
+     */
     private boolean hasReachedEnd(Node node) {
         return node.getCol() == 1 && node.getRow() == 1 || node.getCol() == 2 && node.getRow() == 1 ||
                 node.getCol() == 1 && node.getRow() == 2;

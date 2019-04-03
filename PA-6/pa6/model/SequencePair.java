@@ -4,26 +4,26 @@ package pa6.model;
  * Helper class used when backtracking to determine the sequence element to use, or if a '_' is used
  */
 public class SequencePair {
-    private String colLetter;
-    private String rowLetter;
+    private String _colLetter;
+    private String _rowLetter;
     SequencePair(Direction direction, String fromRow, String fromCol) {
         if (direction == Direction.LEFT) {
-            colLetter = fromCol;
-            rowLetter = "_";
+            _colLetter = fromCol;
+            _rowLetter = "_";
         } else if (direction == Direction.UP) {
-            colLetter = "_";
-            rowLetter = fromRow;
+            _colLetter = "_";
+            _rowLetter = fromRow;
         } else {
-            colLetter = fromCol;
-            rowLetter = fromRow;
+            _colLetter = fromCol;
+            _rowLetter = fromRow;
         }
     }
 
     public String getColLetter() {
-        return colLetter;
+        return _colLetter;
     }
 
     public String getRowLetter() {
-        return rowLetter;
+        return _rowLetter;
     }
 }
