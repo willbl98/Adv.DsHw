@@ -1,0 +1,103 @@
+/* Themed elements for GUI */
+
+/* Background color and font for main window */
+.root {
+    -fx-background-color: #2c313a;
+    -fx-font-family: "Ubuntu";
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+/* Background color ScrollPane */
+.scroll-pane .viewport {
+    -fx-background-color: #2c313a;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Buttons for GUI */
+.button {
+    -fx-background-color: #a9cff1;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-scale: 8px;
+}
+
+/* Change color when pressed to provide user feedback */
+.button:pressed {
+    -fx-background-color: #ef6c00;
+}
+
+/* Field for user input */
+.text-field {
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.8), 2, 0, 0, 0);
+}
+
+.square-normal {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #ffffff;
+}
+
+.square-optimum {
+    -fx-alignment: center;
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-effect: innershadow(two-pass-box, black, 3, 0.1, 1, 1);
+    -fx-fill: #5cb57e;
+}
+
+.square-row-header {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #bd77dd;
+}
+
+.square-col-header {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #ffcc80;
+}
+
+/* squares in [0,0] [1,0] and [0,1]*/
+.square-extra {
+    -fx-fill: transparent;
+}
+
+.value-face {
+    -fx-text-fill: black;
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}
+
+.arrow {
+    -fx-text-fill: black;
+    -fx-font-weight: bold
+}
+
+.matrixview {
+    -fx-padding: 12, 0, 0, 0;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 6, 0, 0, 0);
+}
