@@ -47,7 +47,7 @@ public class NodeMatrixView {
 
 
     private NodeView nodeViewFactory(Node node) {
-        switch (node.getType())  {
+        switch (node.getType()) {
             case NORMAL:
                 NormalNodeView normalNodeView = new NormalNodeView(node);
                 markAsOptimum(node);

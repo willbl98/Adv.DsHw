@@ -30,6 +30,7 @@ public class Node {
         _letter = String.valueOf(_value);
         initType(row, col);
     }
+
     // Header nodes that show information for the GUI
     Node(String letter, int row, int col) {
         _row = row;

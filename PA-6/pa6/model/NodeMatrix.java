@@ -6,21 +6,28 @@ import java.util.HashMap;
 import java.util.List;
 
 public class NodeMatrix {
-    private String[] _row;
-    private String[] _col;
-
-    private Node[][] _dpMatrix;//
-    private int _match;
-    private int _mismatch;
-    private int _gap;
-
+    private final int _match;
+    private final int _mismatch;
+    private final int _gap;
+    private final String[] _row;
+    private final String[] _col;
     private final ArrayList<ArrayList<SequencePair>> _optimumSequenceAlignments;
 
-    public NodeMatrix(int match, int mismatch, int gap) {
+    private Node[][] _dpMatrix;
+
+    public NodeMatrix(String[] row, String[] col, int match, int mismatch, int gap) {
+        _row = row;
+        _col = col;
         _match = match;
         _mismatch = mismatch;
         _gap = gap;
         _optimumSequenceAlignments = new ArrayList<>();
+
+        // Create the matrix
+        initMatrix();
+        populateMatrix();
+        findOptimumSequenceAlignments();
+        System.out.println();
     }
 
     public ArrayList<ArrayList<SequencePair>> getOptimumSequenceAlignments() {
@@ -37,17 +44,6 @@ public class NodeMatrix {
 
     public int getColSize() {
         return _dpMatrix[0].length;
-    }
-
-    public void setSequences(String[] row, String[] col) {
-        _row = row;
-        _col = col;
-    }
-
-    public void createMatrix() {
-        initMatrix();
-        assignMatrixValues();
-        findOptimumSequenceAlignments();
     }
 
     private void initMatrix() {
@@ -82,7 +78,7 @@ public class NodeMatrix {
 
     // Traverse the matrix and determine best score using the provided match, mismatch and gap values using the
     // dynamic programming algorithm discussed in class
-    private void assignMatrixValues() {
+    private void populateMatrix() {
         for (int i = 2; i < _dpMatrix.length; i++) {
             for (int j = 2; j < _dpMatrix[0].length; j++) {
 
@@ -182,14 +178,36 @@ public class NodeMatrix {
             backTrack(parent, determineSequencePair(parent, sequencePair, pairs));
         }
         if (hasReachedEnd(node)) {
+            fillGaps(pairs);
             _optimumSequenceAlignments.add(pairs);
+        }
+    }
+
+    /**
+     * Fills in gaps for aligning that are not of equal size.  Allows for more freedom with GAP placement
+     * <p>
+     * For example, the sequences CAT and Z, Z can be positioned; Z__, _Z_, and __Z even though any one of the will
+     * give the best score
+     *
+     * @param pairs updated best aligned sequence pairs
+     */
+    private void fillGaps(ArrayList<SequencePair> pairs) {
+        if (pairs.size() < Math.max(_row.length, _col.length)) {
+            if (_row.length < _col.length) {
+                for (int j = _col.length - pairs.size() - 1; j >= 0; j--) {
+                    pairs.add(0, new SequencePair("_", _col[j]));
+                }
+            } else {
+                for (int j = _row.length - pairs.size() - 1; j >= 0; j--) {
+                    pairs.add(0, new SequencePair(_row[j], "_"));
+                }
+            }
         }
     }
 
     /**
      * Add previously backtracked nodes to the current solution
      *
-     * @param parent        The current nodes parent during backtracking
      * @param sequencePair  The current sequence pairs for the alignment
      * @param sequencePairs Previously determined sequences pairs for the alignment
      * @return an updated list containing all current sequence pairs to be used in the next backtracking step
@@ -211,8 +229,7 @@ public class NodeMatrix {
      * @return true if the end matrix boundary has been reached
      */
     private boolean hasReachedEnd(Node node) {
-        return node.getCol() == 1 && node.getRow() == 1 || node.getCol() == 2 && node.getRow() == 1 ||
-                node.getCol() == 1 && node.getRow() == 2;
+        return node.getParentOrigin().isEmpty();
     }
 
     // Get the max score from the completed matrix

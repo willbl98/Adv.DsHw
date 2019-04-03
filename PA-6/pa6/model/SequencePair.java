@@ -6,6 +6,7 @@ package pa6.model;
 public class SequencePair {
     private String _colLetter;
     private String _rowLetter;
+
     SequencePair(Direction direction, String fromRow, String fromCol) {
         if (direction == Direction.LEFT) {
             _colLetter = fromCol;
@@ -17,6 +18,11 @@ public class SequencePair {
             _colLetter = fromCol;
             _rowLetter = fromRow;
         }
+    }
+
+    SequencePair(String fromRow, String fromCol) {
+        _colLetter = fromCol;
+        _rowLetter = fromRow;
     }
 
     public String getColLetter() {
