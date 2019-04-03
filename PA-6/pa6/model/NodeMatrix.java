@@ -129,7 +129,7 @@ public class NodeMatrix {
 
     /**
      * Compares node scores and their origins.  Allows ties
-     * @param parentNodes List of ParentNode objects whose node vlaue fields will be compared to find the highest score
+     * @param parentNodes List of ParentNode objects whose node value fields will be compared to find the highest score
      * @return List of parent nodes with the highest score
      */
     private ArrayList<ParentNode> findMaxValue(List<ParentNode> parentNodes) {

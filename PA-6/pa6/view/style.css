@@ -52,6 +52,34 @@
 /* Field for user input */
 .text-field {
     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.8), 2, 0, 0, 0);
+    -fx-background-color: #23252a;
+    -fx-text-fill: #ffffff;
+}
+
+.text-area {
+     -fx-text-fill: #ffffff;
+     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.8), 2, 0, 0, 0);
+     -fx-background-color: #222222;
+ }
+
+.text-area .content {
+    -fx-background-color: #23252a;
+}
+
+.text-area .scroll-bar:vertical > .thumb {
+    -fx-background-color: #a9cff1;
+}
+
+.text-area .scroll-bar:vertical:pressed > .thumb {
+    -fx-background-color: #ef6c00;
+}
+
+.text-area .scroll-bar:horizontal > .thumb {
+    -fx-background-color: #a9cff1;
+}
+
+.text-area .scroll-bar:horizontal:pressed > .thumb {
+    -fx-background-color: #ef6c00;
 }
 
 .square-normal {
