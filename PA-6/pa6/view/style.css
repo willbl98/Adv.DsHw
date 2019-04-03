@@ -30,10 +30,35 @@
     -fx-background-color: transparent;
 }
 
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+}
+
 /* Remove/set invisible unwanted visual elements of the ScrollPane */
 .scroll-bar:vertical {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical > .thumb {
+    -fx-background-color: #a9cff1;
+}
+
+.scroll-bar:vertical:pressed > .thumb {
+    -fx-background-color: #ef6c00;
+}
+
+.scroll-bar:horizontal > .thumb {
+    -fx-background-color: #a9cff1;
+}
+
+.scroll-bar:horizontal:pressed > .thumb {
+    -fx-background-color: #ef6c00;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: transparent;
 }
 
 /* Buttons for GUI */
@@ -80,6 +105,10 @@
 
 .text-area .scroll-bar:horizontal:pressed > .thumb {
     -fx-background-color: #ef6c00;
+}
+
+.text-area .increment-button, .decrement-button {
+    -fx-background-color: transparent;
 }
 
 .square-normal {

@@ -73,16 +73,15 @@
             </VBox>
         </HBox>
     </HBox>
-    <HBox alignment="CENTER" prefHeight="800.0" prefWidth="800.0" GridPane.halignment="CENTER" GridPane.rowIndex="1"
-          GridPane.valignment="CENTER">
+    <HBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <GridPane.margin>
             <Insets/>
         </GridPane.margin>
         <opaqueInsets>
             <Insets/>
         </opaqueInsets>
-        <ScrollPane fx:id="_scrollPane" prefHeight="500.0" prefWidth="700.0">
-            <GridPane fx:id="_grid_output" alignment="CENTER" prefHeight="428.0" prefWidth="698.0"/>
+        <ScrollPane fx:id="_scrollPane">
+            <GridPane fx:id="_grid_output" alignment="CENTER"/>
         </ScrollPane>
     </HBox>
     <VBox GridPane.rowIndex="2">
@@ -98,6 +97,12 @@
             </TextArea>
         </HBox>
         <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0">
+            <Button fx:id="_button_newWindow" focusTraversable="false" mnemonicParsing="false" prefWidth="130.0"
+                    text="Just Results">
+                <HBox.margin>
+                    <Insets right="20.0"/>
+                </HBox.margin>
+            </Button>
             <Button fx:id="_button_calculate" focusTraversable="false" mnemonicParsing="false" prefWidth="130.0"
                     text="Calculate">
                 <HBox.margin>

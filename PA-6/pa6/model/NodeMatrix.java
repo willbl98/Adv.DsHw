@@ -56,7 +56,7 @@ public class NodeMatrix {
         fillStartingValues();
     }
 
-    // Fills Row and Col header matrix nodes with the either a "" square or
+    // Fills row and col header matrix nodes with the either a "" square or
     // the character of the corresponding sequence element
     private void fillHeaders() {
         _dpMatrix[0][0] = new Node("", 0, 0);
@@ -80,7 +80,7 @@ public class NodeMatrix {
         }
     }
 
-    // Traverse Matrix and determine best score using the provided match, mismatch and gap values using the
+    // Traverse the matrix and determine best score using the provided match, mismatch and gap values using the
     // dynamic programming algorithm discussed in class
     private void assignMatrixValues() {
         for (int i = 2; i < _dpMatrix.length; i++) {
@@ -163,7 +163,7 @@ public class NodeMatrix {
         backTrack(node, new ArrayList<>());
     }
 
-    // Backtrack through the Dynamic Programming Matrix to collect the final solution(s)
+    // Backtrack through the dynamic programming matrix to collect the final solution(s)
     // When the end of the matrix is reached each the sequenceAlignment list is updated
     private void backTrack(Node node, ArrayList<SequencePair> pairs) {
         if (getNode(node.getRow(), node.getCol()).getParentOrigin().containsKey(Direction.LEFT)) {

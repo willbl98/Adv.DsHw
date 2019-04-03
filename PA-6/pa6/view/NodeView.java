@@ -10,15 +10,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 class NodeView extends StackPane {
-    @SuppressWarnings("FieldCanBeLocal")
-    private final double SQUARE_SIZE = 60.0; // rectangle size
     private final Label _labelLeftArrow = new Label("▶ ");
     private final Label _labelDownArrow = new Label("▾");
     private final Label _labelDiagonalArrow = new Label("◢ ");
     final Rectangle _rectangle;
 
     NodeView(Node node) {
-        _rectangle = new Rectangle(SQUARE_SIZE, SQUARE_SIZE);
+        // Set at size 60x60
+        _rectangle = new Rectangle(60.0, 60.0);
 
         // Container for the Labels that sit on top of the Rectangle.
         // BorderPans have 5 'containers'. Left, Right, Top, Bottom, and Center

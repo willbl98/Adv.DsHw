@@ -3,7 +3,7 @@ package pa6.model;
 import java.util.HashMap;
 
 /**
- * Represents an element from the sequence comparision in the Dynamic Programming Matrix
+ * Represents an element from the sequence comparision in the dynamic programming matrix
  */
 public class Node {
     // Row and column placement in the DP matrix
