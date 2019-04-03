@@ -190,6 +190,7 @@ public class NodeMatrix {
                                                           ArrayList<SequencePair> sequencePairs) {
         _dpMatrix[parent.getRow()][parent.getCol()].setOptimumType();
         ArrayList<SequencePair> updatedSequences = new ArrayList<>(sequencePairs);
+        // since its from the bottom up, insert at beginning so the sequences aren't backwards
         updatedSequences.add(0, sequencePair);
         return updatedSequences;
     }
