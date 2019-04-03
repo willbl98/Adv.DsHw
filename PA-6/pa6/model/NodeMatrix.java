@@ -44,14 +44,10 @@ public class NodeMatrix {
         _col = col;
     }
 
-    public int findMaxScore() {
-        return _dpMatrix[getRowSize()-1][getColSize()-1].getValue();
-    }
-
     public void createMatrix() {
         initMatrix();
-        assignValues();
-        findOptimumSolution();
+        assignMatrixValues();
+        findOptimumSequenceAlignments();
     }
 
     private void initMatrix() {
@@ -86,56 +82,34 @@ public class NodeMatrix {
 
     // Traverse Matrix and determine best score using the provided match, mismatch and gap values using the
     // dynamic programming algorithm discussed in class
-    private void assignValues() {
+    private void assignMatrixValues() {
         for (int i = 2; i < _dpMatrix.length; i++) {
             for (int j = 2; j < _dpMatrix[0].length; j++) {
-
-                // Use either the match or mismatch depending on the sequence values
-                int diagValue = _dpMatrix[i - 1][j - 1].getValue();
-                diagValue += _row[i - 2].equals(_col[j - 2]) ? _match : _mismatch;
-
-                // Create three parent Node objects and add the score modifiers to their respective values to determine
-                // where to derive the score for the current node.
-                // Each object references a neighboring node in the matrix that is either to the left, above or
-                // diagonally adjacent to the current node.
-                ParentNode diag = new ParentNode(
-                        Direction.DIAG,
-                        diagValue,
-                        _dpMatrix[i - 1][j - 1]
-                );
-                ParentNode left = new ParentNode(
-                        Direction.LEFT,
-                        _dpMatrix[i][j - 1].getValue() + _gap,
-                        _dpMatrix[i][j - 1]
-                );
-                ParentNode up = new ParentNode(
-                        Direction.UP,
-                        _dpMatrix[i - 1][j].getValue() + _gap,
-                        _dpMatrix[i - 1][j]
-                );
-
                 // Find best match
-                ArrayList<ParentNode> bestMatches = findMaxValue(Arrays.asList(left, up, diag));
-                HashMap<Direction, Node> directionNodeHashMap = new HashMap<>();
+                ArrayList<ParentHelper> bestAlignment = findBestParentValue(i, j);
+                HashMap<Direction, Node> parentNodeMap = new HashMap<>();
 
                 // Use the best values for the new node and save the Parent from whom they were derived
-                for (ParentNode o : bestMatches) directionNodeHashMap.put(o.getDirection(), o.getNode());
-                Node node = new Node(bestMatches.get(0).getValue(), i, j);
-                node.setParentOrigin(directionNodeHashMap);
+                for (ParentHelper o : bestAlignment) parentNodeMap.put(o.getDirection(), o.getNode());
+                Node node = new Node(bestAlignment.get(0).getValue(), i, j);
+                node.setParentOrigin(parentNodeMap);
                 _dpMatrix[i][j] = node;
             }
         }
     }
 
     /**
-     * Compares node scores and their origins.  Allows ties
-     * @param parentNodes List of ParentNode objects whose node value fields will be compared to find the highest score
+     * Compares node values from each of three possible parent sources: LEFT, UP, DIAG.  Allows ties.
+     *
+     * @param row current row value in the DP matrix
+     * @param col current row value in the DP matrix
      * @return List of parent nodes with the highest score
      */
-    private ArrayList<ParentNode> findMaxValue(List<ParentNode> parentNodes) {
-        ArrayList<ParentNode> bestMatches = new ArrayList<>();
+    private ArrayList<ParentHelper> findBestParentValue(int row, int col) {
+        ArrayList<ParentHelper> bestMatches = new ArrayList<>();
         int max = Integer.MIN_VALUE;
-        for (ParentNode o : parentNodes) {
+
+        for (ParentHelper o : gatherParentNodes(row, col)) {
             if (o.getValue() >= max) {
                 if (o.getValue() > max) {
                     bestMatches.clear();
@@ -147,9 +121,33 @@ public class NodeMatrix {
         return bestMatches;
     }
 
+    /**
+     * Gathers current node's parent nodes from LEFT, UP and DIAG
+     *
+     * @param row current row value in the DP matrix
+     * @param col current row value in the DP matrix
+     * @return List of parent nodes with the highest score
+     */
+    private List<ParentHelper> gatherParentNodes(int row, int col) {
+        // Use either the match or mismatch modifier depending on the sequence values
+        int diagValue = _dpMatrix[row - 1][col - 1].getValue();
+        diagValue += _row[row - 2].equals(_col[col - 2]) ? _match : _mismatch;
+
+        // Create three parent Node objects and add the score modifiers to their respective values to determine
+        // where to derive the score for the current node.
+        // Each object references a neighboring node in the matrix that is either to the left, above or
+        // diagonally adjacent to the current node.
+        ParentHelper diagParent = new ParentHelper(Direction.DIAG, diagValue, _dpMatrix[row - 1][col - 1]);
+        ParentHelper leftParent = new ParentHelper(Direction.LEFT, _dpMatrix[row][col - 1].getValue() + _gap,
+                _dpMatrix[row][col - 1]);
+        ParentHelper upParent = new ParentHelper(Direction.UP, _dpMatrix[row - 1][col].getValue() + _gap,
+                _dpMatrix[row - 1][col]);
+        return Arrays.asList(leftParent, upParent, diagParent);
+    }
+
     // Starting backtracking process to find the best sequence alignments.  Starts at the final position in the DP
     // matrix
-    private void findOptimumSolution() {
+    private void findOptimumSequenceAlignments() {
         _dpMatrix[_dpMatrix.length - 1][_dpMatrix[0].length - 1].setOptimumType();
         Node node = _dpMatrix[_dpMatrix.length - 1][_dpMatrix[0].length - 1];
         backTrack(node, new ArrayList<>());
@@ -180,8 +178,9 @@ public class NodeMatrix {
 
     /**
      * Add previously backtracked nodes to the current solution
-     * @param parent The current nodes parent during backtracking
-     * @param sequencePair The current sequence pairs for the alignment
+     *
+     * @param parent        The current nodes parent during backtracking
+     * @param sequencePair  The current sequence pairs for the alignment
      * @param sequencePairs Previously determined sequences pairs for the alignment
      * @return an updated list containing all current sequence pairs to be used in the next backtracking step
      */
@@ -197,11 +196,17 @@ public class NodeMatrix {
 
     /**
      * Returns true when the end of the scoring matrix has been reached
+     *
      * @param node current node placement in the DP matrix
      * @return true if the end matrix boundary has been reached
      */
     private boolean hasReachedEnd(Node node) {
         return node.getCol() == 1 && node.getRow() == 1 || node.getCol() == 2 && node.getRow() == 1 ||
                 node.getCol() == 1 && node.getRow() == 2;
+    }
+
+    // Get the max score from the completed matrix
+    public int findMaxScore() {
+        return _dpMatrix[getRowSize() - 1][getColSize() - 1].getValue();
     }
 }
