@@ -85,14 +85,24 @@ public class NodeMatrix {
     private void assignMatrixValues() {
         for (int i = 2; i < _dpMatrix.length; i++) {
             for (int j = 2; j < _dpMatrix[0].length; j++) {
-                // Find best match
+
+                // Find best match (the one with that gives the highest score). The new score and its origin are
+                // saved in the ParentHelper class
                 ArrayList<ParentHelper> bestAlignment = findBestParentValue(i, j);
+
+                // Map is used to track where the score originated from (LEFT, UP, DIAG) and which node its from
                 HashMap<Direction, Node> parentNodeMap = new HashMap<>();
 
-                // Use the best values for the new node and save the Parent from whom they were derived
+                // Populate the HashMap containing the Direction and the parent nodes that would provide the best score
                 for (ParentHelper o : bestAlignment) parentNodeMap.put(o.getDirection(), o.getNode());
+
+                // Creat a new node and use the highest score as its value.
                 Node node = new Node(bestAlignment.get(0).getValue(), i, j);
-                node.setParentOrigin(parentNodeMap);
+
+                // Save the node's parent node(s)
+                node.setParentNodes(parentNodeMap);
+
+                // Add the node to the matrix
                 _dpMatrix[i][j] = node;
             }
         }

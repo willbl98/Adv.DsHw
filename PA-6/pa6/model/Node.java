@@ -55,7 +55,7 @@ public class Node {
         return _parentOrigin;
     }
 
-    void setParentOrigin(HashMap<Direction, Node> origin) {
+    void setParentNodes(HashMap<Direction, Node> origin) {
         _parentOrigin = origin;
     }
 
