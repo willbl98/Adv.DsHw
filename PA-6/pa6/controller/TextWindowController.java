@@ -3,7 +3,7 @@ package pa6.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import pa6.model.NodeMatrix;
+import pa6.Main.NodeMatrix;
 import pa6.model.SequencePair;
 
 import java.net.URL;

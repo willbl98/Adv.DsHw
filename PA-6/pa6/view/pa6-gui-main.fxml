@@ -14,8 +14,8 @@
 <?import javafx.scene.text.Font?>
 
 <!-- GUI elements for main UI window -->
-
-<GridPane fx:id="_grid" alignment="center" hgap="10" prefHeight="800.0" prefWidth="800.0" stylesheets="@style.css"
+<GridPane fx:id="_grid" alignment="center" hgap="10" prefHeight="800.0" prefWidth="800.0"
+          stylesheets="@pa6-gui-style.css"
           vgap="10" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="600.0"/>
@@ -25,19 +25,18 @@
         <RowConstraints minHeight="10.0" prefHeight="700.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" vgrow="SOMETIMES"/>
     </rowConstraints>
+
+    <!-- Top portion of GUI for user input -->
     <HBox alignment="CENTER">
         <VBox alignment="CENTER" prefWidth="500.0" spacing="10.0">
 
             <VBox>
                 <Label text="Sequence 1"/>
-                <TextField fx:id="_textField_sequence1" focusTraversable="false" prefWidth="100.0"
-                           promptText="e.g. ACTAA" text="ACTAA"/>
+                <TextField fx:id="_textField_sequence1" focusTraversable="false" prefWidth="100.0"/>
             </VBox>
-
             <VBox>
                 <Label text="Sequence 2"/>
-                <TextField fx:id="_textField_sequence2" focusTraversable="false" prefWidth="100.0"
-                           promptText="e.g. CCTT" text="CCTT"/>
+                <TextField fx:id="_textField_sequence2" focusTraversable="false" prefWidth="100.0"/>
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
@@ -50,29 +49,27 @@
             <VBox alignment="CENTER_RIGHT" prefWidth="100.0" spacing="10.0">
                 <VBox>
                     <Label text="Match"/>
-                    <TextField fx:id="_textField_match" focusTraversable="false" prefWidth="100.0" promptText="5"
-                               text="5"/>
+                    <TextField fx:id="_textField_match" focusTraversable="false" prefWidth="100.0"/>
                 </VBox>
                 <VBox>
                     <Label text="Mismatch"/>
-                    <TextField fx:id="_textField_mismatch" focusTraversable="false" prefWidth="100.0" promptText="-3"
-                               text="-3"/>
+                    <TextField fx:id="_textField_mismatch" focusTraversable="false" prefWidth="100.0"/>
                 </VBox>
             </VBox>
             <VBox alignment="CENTER_RIGHT" prefWidth="100.0" spacing="10.0">
                 <VBox>
                     <Label text="Gap"/>
-                    <TextField fx:id="_textField_gap" focusTraversable="false" prefWidth="100.0" promptText="-2"
-                               text="-2"/>
+                    <TextField fx:id="_textField_gap" focusTraversable="false" prefWidth="100.0"/>
                 </VBox>
                 <VBox>
                     <Label text="Mismatch" visible="false"/>
-                    <TextField fx:id="_textField_start1" focusTraversable="false" prefWidth="100.0" promptText="e.g. 3"
-                               visible="false"/>
+                    <TextField fx:id="_textField_start1" focusTraversable="false" prefWidth="100.0" visible="false"/>
                 </VBox>
             </VBox>
         </HBox>
     </HBox>
+
+    <!-- Center portion to display matrix -->
     <HBox alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <GridPane.margin>
             <Insets/>
@@ -84,13 +81,15 @@
             <GridPane fx:id="_grid_output" alignment="CENTER"/>
         </ScrollPane>
     </HBox>
+
+    <!-- Bottom portion to containing buttons to calculate results -->
     <VBox GridPane.rowIndex="2">
         <GridPane.margin>
             <Insets bottom="20.0"/>
         </GridPane.margin>
         <HBox alignment="CENTER" prefHeight="150.0" prefWidth="760.0">
             <TextArea fx:id="_textArea_output" editable="false" focusTraversable="false" prefHeight="200.0"
-                      prefWidth="760.0" text="The current data is the class example and just here for convenience.">
+                      prefWidth="760.0">
                 <font>
                     <Font name="Courier New Bold" size="14.0"/>
                 </font>
@@ -98,7 +97,7 @@
         </HBox>
         <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0">
             <Button fx:id="_button_newWindow" focusTraversable="false" mnemonicParsing="false" prefWidth="130.0"
-                    text="Just Results">
+                    text="Expand Text Results">
                 <HBox.margin>
                     <Insets right="20.0"/>
                 </HBox.margin>

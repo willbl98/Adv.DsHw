@@ -11,7 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import pa6.model.NodeMatrix;
+import pa6.Main.NodeMatrix;
 import pa6.view.NodeMatrixView;
 
 import java.io.IOException;
@@ -94,7 +94,7 @@ public class Controller implements Initializable {
     // Opens a new window and displays the max profit Schedule as well as all legitimate schedules
     private void showInNewWindow() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Controller.class.getResource("/pa6/view/textwindow.fxml"));
+        fxmlLoader.setLocation(Controller.class.getResource("/pa6/view/pa6-gui-textwindow.fxml"));
 
         TextWindowController setupMenuController = new TextWindowController(_nodeMatrix);
         fxmlLoader.setController(setupMenuController);

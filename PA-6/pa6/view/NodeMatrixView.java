@@ -2,7 +2,7 @@ package pa6.view;
 
 import pa6.model.Direction;
 import pa6.model.Node;
-import pa6.model.NodeMatrix;
+import pa6.Main.NodeMatrix;
 import javafx.scene.CacheHint;
 import javafx.scene.layout.GridPane;
 
@@ -19,7 +19,7 @@ public class NodeMatrixView {
         _gridPane.setCache(true);
         _gridPane.setCacheHint(CacheHint.SPEED);
         createMatrixView();
-        _gridPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        _gridPane.getStylesheets().add(getClass().getResource("pa6-gui-style.css").toExternalForm());
         _gridPane.getStyleClass().add("matrixview");
     }
 

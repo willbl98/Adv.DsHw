@@ -81,6 +81,7 @@
     -fx-text-fill: #ffffff;
 }
 
+/* text area to display results in written form */
 .text-area {
     -fx-text-fill: #ffffff;
     -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.8), 2, 0, 0, 0);
@@ -111,12 +112,14 @@
     -fx-background-color: transparent;
 }
 
+/* ordinary node. not special */
 .square-normal {
     -fx-stroke-type: inside;
     -fx-stroke: black;
     -fx-fill: #ffffff;
 }
 
+/* node is part of best alignment */
 .square-optimum {
     -fx-alignment: center;
     -fx-stroke-type: inside;
@@ -125,12 +128,14 @@
     -fx-fill: #5cb57e;
 }
 
+/* row header nodes */
 .square-row-header {
     -fx-stroke-type: inside;
     -fx-stroke: black;
     -fx-fill: #bd77dd;
 }
 
+/* column header nodes */
 .square-col-header {
     -fx-stroke-type: inside;
     -fx-stroke: black;
@@ -142,17 +147,20 @@
     -fx-fill: transparent;
 }
 
+/* label showing the node value */
 .value-face {
     -fx-text-fill: black;
     -fx-font-size: 1.2em;
     -fx-font-weight: bold;
 }
 
+/* label objects in the matrix show the path */
 .arrow {
     -fx-text-fill: black;
     -fx-font-weight: bold
 }
 
+/* style for the GridPane containing the node matrix*/
 .matrixview {
     -fx-padding: 12, 0, 0, 0;
     -fx-alignment: center;

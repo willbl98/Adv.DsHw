@@ -22,7 +22,7 @@ public class Node {
     private NodeType _type;
 
     // 'Main' nodes that are used during calculation
-    Node(int value, int row, int col) {
+    public Node(int value, int row, int col) {
         _value = value;
         _row = row;
         _col = col;
@@ -32,7 +32,7 @@ public class Node {
     }
 
     // Header nodes that show information for the GUI
-    Node(String letter, int row, int col) {
+    public Node(String letter, int row, int col) {
         _row = row;
         _col = col;
         _parentOrigin = new HashMap<>();
@@ -48,7 +48,7 @@ public class Node {
         return _col;
     }
 
-    int getValue() {
+    public int getValue() {
         return _value;
     }
 
@@ -56,7 +56,7 @@ public class Node {
         return _parentOrigin;
     }
 
-    void setParentNodes(HashMap<Direction, Node> origin) {
+    public void setParentNodes(HashMap<Direction, Node> origin) {
         _parentOrigin = origin;
     }
 
@@ -68,7 +68,7 @@ public class Node {
         return _type;
     }
 
-    void setOptimumType() {
+    public void setOptimumType() {
         _type = NodeType.OPTIMUM;
     }
 
