@@ -1,13 +1,5 @@
 package pa7.graph.controller;
 
-import pa7.graph.model.AdjList;
-import pa7.graph.model.AdjMatrix;
-import pa7.graph.model.BFSGraph;
-import pa7.graph.model.NodeGraph;
-import pa7.graph.view.AdjListView;
-import pa7.graph.view.AdjMatrixView;
-import pa7.graph.view.BFSView;
-import pa7.table.PACell;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -19,6 +11,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import pa7.graph.model.*;
+import pa7.graph.view.AdjListView;
+import pa7.graph.view.AdjMatrixView;
+import pa7.graph.view.BFSView;
+import pa7.table.PACell;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -117,8 +114,9 @@ public class Controller implements Initializable {
             _gridPane_list.getChildren().add(adjListView.getGridPane());
 
             // Generate BFS tables
-            for (ArrayList<ArrayList<PACell>> bfsTables : BFSGraph.createBFSTable(ng)) {
-                BFSView bfsView = new BFSView(bfsTables);
+            ArrayList<ArrayList<ArrayList<PACell>>> bfsTables = BFSGraph.createBFSTable(ng);
+            for (ArrayList<ArrayList<PACell>> bfsTable : bfsTables) {
+                BFSView bfsView = new BFSView(bfsTable);
                 GridPane gridPane = new GridPane();
                 gridPane.getChildren().add(bfsView.getGridPane());
                 gridPane.setAlignment(Pos.CENTER);

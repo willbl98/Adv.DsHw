@@ -1,8 +1,8 @@
 package pa7.graph.model;
 
+import pa7.graph.Main;
 import pa7.table.PACell;
 import pa7.table.PACellType;
-import pa7.graph.Main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class BFSGraph implements IGraphData {
 
-    private static final String[] rowHeaders = new String[]{"Node", "Color", "Distance", "Predecessor"};
+    private static final String[] rowHeaders = new String[]{"Node", "Color", "Distance", "Predecessor", "Visit Order"};
 
     /**
      * Create list of tables, including rows, cols, and title to be processed by a View class.  Since its required
@@ -32,12 +32,12 @@ public class BFSGraph implements IGraphData {
     }
 
     /**
-     * Create columns cells depedning on current node
+     * Create columns cells depending on current node
      *
      * @param type    Marked or Unmarked
      * @param nodeMap Graph nodes
      * @param name    Node name, ie node map key
-     * @param table   the collection of cells/ table of cells
+     * @param table   the collection of cells table of cells
      */
     private void createColCells(PACellType type,
                                 HashMap<String, Node> nodeMap,
@@ -54,6 +54,14 @@ public class BFSGraph implements IGraphData {
             table.get(4).add(new PACell(type, "^"));
         } else {
             table.get(4).add(new PACell(type, nodeMap.get(name).getPredecessor().getName()));
+        }
+        // Visit Order
+        if (nodeMap.get(name).getVisitOrder() == 0) {
+            table.get(5).add(new PACell(type, "Start"));
+        } else if (nodeMap.get(name).getVisitOrder() < 0) {
+            table.get(5).add(new PACell(type, "-"));
+        } else {
+            table.get(5).add(new PACell(type, String.valueOf(nodeMap.get(name).getVisitOrder())));
         }
     }
 

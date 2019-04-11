@@ -7,6 +7,8 @@ import java.util.ArrayList;
  */
 public class Node {
     private final String name;  // Node name
+
+    private int visitOrder;
     private VisitStatus visitStatus;  // Marks if a node has been traversed during BFS
     private int distance;  // Distance from starting node during BFS
     private Node predecessor;  // Previously accessed node during BFS traversal
@@ -20,6 +22,7 @@ public class Node {
         this.visitStatus = VisitStatus.WHITE;
         this.distance = Integer.MIN_VALUE;
         this.predecessor = null;
+        this.visitOrder = Integer.MIN_VALUE;
         this.neighbors = new ArrayList<>();
     }
 
@@ -51,6 +54,15 @@ public class Node {
         return neighbors;
     }
 
+    int getVisitOrder() {
+        return visitOrder;
+    }
+
+    public void setVisitOrder(int visitOrder) {
+        this.visitOrder = visitOrder;
+    }
+
+
     String getName() {
         return name;
     }
@@ -68,6 +80,7 @@ public class Node {
     // Called during map copy action in the BFS function.  Resets copy nodes to default state
     public void resetForCopy() {
         setVisitStatus(VisitStatus.WHITE);
+        setVisitOrder(Integer.MIN_VALUE);
         setPredecessor(null);
     }
 
@@ -82,6 +95,11 @@ public class Node {
                 return "Black";
         }
         return null;
+    }
+
+    // Compares end times when sorting tasks
+    int compareVisitOrder(Node task) {
+        return Integer.compare(task.getVisitOrder(), getVisitOrder());
     }
 
     /**

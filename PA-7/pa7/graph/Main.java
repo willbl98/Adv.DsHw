@@ -24,10 +24,11 @@ public class Main extends Application {
     public static HashMap<String, Node> BFS(HashMap<String, Node> o, String start) {
         // Copy map so original contents to affected
         HashMap<String, Node> nm = copyMap(o);
-
+        int orderCtr = -1;
         // Initialize first node
         nm.get(start).setVisitStatus(Node.VisitStatus.GRAY); // set gray status
         nm.get(start).setDistance(0); // set distance 0
+        nm.get(start).setVisitOrder(++orderCtr); // set distance 0
 
         // Creat the queue
         Queue<Node> queue = new LinkedList<>();
@@ -44,6 +45,8 @@ public class Main extends Application {
                     neighbor.setVisitStatus(Node.VisitStatus.GRAY);
                     // Set distance
                     neighbor.setDistance(currentNode.getDistance() + 1);
+                    // Save order visited
+                    neighbor.setVisitOrder(++orderCtr);
                     // Set Predecessor
                     neighbor.setPredecessor(currentNode);
                     // Add to the queue
