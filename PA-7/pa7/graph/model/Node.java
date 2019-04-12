@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class Node {
     private final String name;  // Node name
+    private String predecessorName = "";
 
     private int visitOrder;
     private VisitStatus visitStatus;  // Marks if a node has been traversed during BFS
@@ -26,6 +27,13 @@ public class Node {
         this.neighbors = new ArrayList<>();
     }
 
+    public Node(String name, VisitStatus visitStatus, int distance, Node predecessor) {
+        this.name = name;
+        this.visitStatus = visitStatus;
+        this.distance = distance;
+        this.predecessor = predecessor;
+    }
+
     public VisitStatus getVisitStatus() {
         return visitStatus;
     }
@@ -42,7 +50,7 @@ public class Node {
         this.distance = distance;
     }
 
-    Node getPredecessor() {
+    public Node getPredecessor() {
         return predecessor;
     }
 
@@ -63,7 +71,7 @@ public class Node {
     }
 
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -81,6 +89,7 @@ public class Node {
     public void resetForCopy() {
         setVisitStatus(VisitStatus.WHITE);
         setVisitOrder(Integer.MIN_VALUE);
+        setDistance(Integer.MIN_VALUE);
         setPredecessor(null);
     }
 
@@ -100,6 +109,10 @@ public class Node {
     // Compares end times when sorting tasks
     int compareVisitOrder(Node task) {
         return Integer.compare(task.getVisitOrder(), getVisitOrder());
+    }
+
+    public String getPredecessorName() {
+        return predecessorName;
     }
 
     /**

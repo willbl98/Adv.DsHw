@@ -6,8 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.192"
-          xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0" stylesheets="@pa-style.css"
+          xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
     </columnConstraints>
@@ -35,9 +35,9 @@
                             <HBox.margin>
                                 <Insets right="20.0"/>
                             </HBox.margin>
-                            <RadioButton fx:id="_radioButton_undirected" alignment="CENTER_RIGHT"
-                                         contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false"
-                                         text="Undirected" textAlignment="RIGHT" textFill="WHITE"/>
+                            <RadioButton fx:id="_radioButton_undirected" alignment="CENTER_RIGHT" contentDisplay="RIGHT"
+                                         focusTraversable="false" mnemonicParsing="false" text="Undirected"
+                                         textAlignment="RIGHT" textFill="WHITE"/>
                         </VBox>
                         <VBox alignment="CENTER">
                             <opaqueInsets>
@@ -70,9 +70,25 @@
             </ScrollPane>
         </Tab>
         <Tab closable="false" text="BFS Table">
-            <ScrollPane fx:id="_scrollPane1" fitToHeight="true" fitToWidth="true" prefHeight="700.0">
-                <VBox fx:id="_vBox_bfsContainer" alignment="TOP_CENTER"/>
-            </ScrollPane>
+            <VBox>
+                <HBox alignment="CENTER_RIGHT" styleClass="start-entry">
+                    <padding>
+                        <Insets right="20.0"/>
+                    </padding>
+                    <TextField fx:id="_textField_start" prefWidth="200.0" promptText="Enter Starting Node">
+                        <HBox.margin>
+                            <Insets right="20.0"/>
+                        </HBox.margin>
+                        <font>
+                            <Font name="Consolas Bold" size="12.0"/>
+                        </font>
+                    </TextField>
+                    <Button fx:id="_button_start" mnemonicParsing="false" text="Set Starting Node"/>
+                </HBox>
+                <ScrollPane fx:id="_scrollPane1" fitToHeight="true" fitToWidth="true" prefHeight="700.0">
+                    <VBox fx:id="_vBox_bfsContainer" alignment="TOP_CENTER" styleClass="start-entry"/>
+                </ScrollPane>
+            </VBox>
         </Tab>
         <GridPane.margin>
             <Insets/>

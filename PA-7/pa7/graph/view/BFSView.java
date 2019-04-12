@@ -54,12 +54,16 @@ public class BFSView extends PATableView {
         PACellView cell = new PACellView(PACell.getCellContent());
         cell.setCellWidth(cellSize);
         switch (PACell.getPACellType()) {
-            case CELL:
+            case CELL_WHITE:
                 cell.formatCell("cell-label", "white-cell");
                 _gridPane.add(cell, col, row);
                 break;
-            case CELL_MARKED:
+            case CELL_GRAY:
                 cell.formatCell("cell-label", "gray-cell");
+                _gridPane.add(cell, col, row);
+                break;
+            case CELL_BLACK:
+                cell.formatCell("cell-label", "black-cell");
                 _gridPane.add(cell, col, row);
                 break;
             case ROW_HEADER:
@@ -68,7 +72,7 @@ public class BFSView extends PATableView {
                 _gridPane.add(cell, col, row);
                 break;
             case TITLE:
-                cell.setLabel("Starting Node →  " + matrix.get(0).get(0).getCellContent());
+                cell.setLabel("Tracking Table");
                 cell.formatCell("cell-label", "title-cell");
                 cell.setCellWidth((titleCellSize - 1) * cellSize + ROW_HEADER_WIDTH);
                 _gridPane.add(cell, 0, 0, titleCellSize, 1);

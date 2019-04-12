@@ -19,7 +19,7 @@ public class AdjListView extends PATableView {
     public AdjListView(ArrayList<ArrayList<PACell>> matrix) {
         super(matrix);
         titleCellSize = findMaxListLength(matrix);
-        cellSize = findMaxStringLength(matrix, 2, 1);
+        cellSize = findMaxStringLength(matrix, 1, 1);
         createCells(matrix);
         _gridPane.getStylesheets().add(getClass().getResource("pa-style.css").toExternalForm());
         _gridPane.getStyleClass().add("matrixview");
@@ -63,7 +63,7 @@ public class AdjListView extends PATableView {
         PACellView cell = new PACellView(PACell.getCellContent());
         cell.setCellWidth(cellSize);
         switch (PACell.getPACellType()) {
-            case CELL:
+            case CELL_WHITE:
                 cell.formatCell("cell-label", "white-cell");
                 _gridPane.add(cell, col, row);
                 break;

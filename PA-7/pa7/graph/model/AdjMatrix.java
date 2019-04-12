@@ -40,9 +40,9 @@ public class AdjMatrix implements IGraphData {
         for (int row = 2; row < nodeNameSet.length + 2; row++) {
             for (int col = 1; col < nodeNameSet.length + 1; col++) {
                 if (nodeMap.get(nodeNameSet[row - 2]).containsNeighbor(nodeNameSet[col - 1])) {
-                    table.get(row).add(col, new PACell(PACellType.CELL_MARKED, "1"));
+                    table.get(row).add(col, new PACell(PACellType.CELL_GRAY, "1"));
                 } else {
-                    table.get(row).add(col, new PACell(PACellType.CELL, "0"));
+                    table.get(row).add(col, new PACell(PACellType.CELL_WHITE, "0"));
                 }
             }
         }

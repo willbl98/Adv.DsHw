@@ -51,11 +51,11 @@ public class AdjMatrixView extends PATableView {
         PACellView cell = new PACellView(PACell.getCellContent());
         cell.setCellWidth(cellSize);
         switch (PACell.getPACellType()) {
-            case CELL:
+            case CELL_WHITE:
                 cell.formatCell("cell-label", "white-cell");
                 _gridPane.add(cell, col, row + 1);
                 break;
-            case CELL_MARKED:
+            case CELL_GRAY:
                 cell.formatCell("cell-label", "green-cell");
                 _gridPane.add(cell, col, row + 1);
                 break;

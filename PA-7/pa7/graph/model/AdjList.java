@@ -41,7 +41,7 @@ public class AdjList implements IGraphData {
         String[] nodeNameSet = nodeMap.keySet().toArray(new String[0]);
         for (int row = 2; row < nodeNameSet.length + 2; row++) {
             for (Node node : nodeMap.get(nodeNameSet[row - 2]).getNeighbors()) {
-                table.get(row).add(new PACell(PACellType.CELL, node.getName()));
+                table.get(row).add(new PACell(PACellType.CELL_WHITE, node.getName()));
             }
         }
         return table;

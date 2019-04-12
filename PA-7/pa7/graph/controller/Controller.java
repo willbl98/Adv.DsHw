@@ -5,10 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import pa7.graph.model.*;
@@ -29,30 +26,28 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
+    Button _button_start;  // submit starting node
+    @FXML
     private GridPane _gridPane_matrix;  // holds adjacency matrix table
-
     @FXML
     private GridPane _gridPane_list;  // holds adjacency list table
-
     @FXML
     private VBox _vBox_bfsContainer;  // holds bfs tracking tables
-
     @FXML
     private Button _button_calculate;  // when pressed processes user-in
-
     @FXML
     private TextArea _textArea_userIn;  // space for user-in
-
     @FXML
     private TitledPane _titledPane_console;  // holds user-in tools
-
     @FXML
     private RadioButton _radioButton_directed;  // lets user select directed graph
-
     @FXML
     private RadioButton _radioButton_undirected;  // lets user select directed graph
+    @FXML
+    private TextField _textField_start;  // lets user select starting node
 
     private BooleanProperty isDirected = new SimpleBooleanProperty();  // listens for changes to radio_button
+    private NodeGraph ng;
 
     /**
      * Process user information on graph nodes and edges
@@ -101,9 +96,8 @@ public class Controller implements Initializable {
         _button_calculate.setOnAction(e -> {
             // Clear GUI
             clear();
+            ng = new NodeGraph(parseUserIn(), isDirected.get());  // Build Graph
 
-            // Build Graph
-            NodeGraph ng = new NodeGraph(parseUserIn(), isDirected.get());
 
             // Generate Adjacency Matrix tables
             AdjMatrixView adjMatrix = new AdjMatrixView(AdjMatrix.createAdjMatrix(ng));
@@ -112,9 +106,17 @@ public class Controller implements Initializable {
             // Generate Adjacency List tables
             AdjListView adjListView = new AdjListView(AdjList.createAdjList(ng));
             _gridPane_list.getChildren().add(adjListView.getGridPane());
+        });
 
+        // Build BFS tables based on user entered starting node
+        _button_start.setOnAction(e -> {
+            _vBox_bfsContainer.getChildren().clear();
             // Generate BFS tables
-            ArrayList<ArrayList<ArrayList<PACell>>> bfsTables = BFSGraph.createBFSTable(ng);
+            ArrayList<ArrayList<ArrayList<PACell>>> bfsTables = BFSGraph.createBFSTable(ng, _textField_start.getText());
+
+            AdjListView visitOrder = new AdjListView(VisitOrder.createOrderList(ng));
+            _vBox_bfsContainer.getChildren().add(visitOrder.getGridPane());
+
             for (ArrayList<ArrayList<PACell>> bfsTable : bfsTables) {
                 BFSView bfsView = new BFSView(bfsTable);
                 GridPane gridPane = new GridPane();
