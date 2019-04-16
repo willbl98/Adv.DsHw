@@ -131,7 +131,7 @@ public class Main extends Application {
             // Save the final traversed order
             traversed.putAll(maps.get(maps.size() - 1));
 
-            // Return all steps taken during the BFS
+            // Return all steps taken during the dfs
             return maps;
         }
 

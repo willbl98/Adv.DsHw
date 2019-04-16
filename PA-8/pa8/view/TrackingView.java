@@ -9,7 +9,7 @@ import edu.advalg.utils.table.PATableView;
 import java.util.ArrayList;
 
 /**
- * Graphic of the BFS table
+ * Graphic of the dfs table
  */
 public class TrackingView extends PATableView {
 

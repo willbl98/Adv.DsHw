@@ -9,8 +9,8 @@ public class Node {
     private final String name;  // Node name
 
     private int visitOrder;
-    private VisitStatus visitStatus;  // Marks if a node has been traversed during BFS
-    private Node predecessor;  // Previously accessed node during BFS traversal
+    private VisitStatus visitStatus;  // Marks if a node has been traversed during dfs
+    private Node predecessor;  // Previously accessed node during dfs traversal
     private ArrayList<Node> neighbors;  // Neighboring nodes in the graph
     private int firstTime;
     private int lastTime;

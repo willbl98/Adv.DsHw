@@ -86,7 +86,7 @@
                     <Button fx:id="_button_start" mnemonicParsing="false" text="Set Starting Node"/>
                 </HBox>
                 <ScrollPane fx:id="_scrollPane1" fitToHeight="true" fitToWidth="true" prefHeight="700.0">
-                    <VBox fx:id="_vBox_bfsContainer" alignment="TOP_CENTER" styleClass="start-entry"/>
+                    <VBox fx:id="_vBox_dfsContainer" alignment="TOP_CENTER" styleClass="start-entry"/>
                 </ScrollPane>
             </VBox>
         </Tab>

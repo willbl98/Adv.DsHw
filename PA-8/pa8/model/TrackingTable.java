@@ -22,12 +22,12 @@ public class TrackingTable implements IGraphData {
      * @return complete table
      */
     public static ArrayList<ArrayList<ArrayList<PACell>>> createTrackingTable(NodeGraph ng, String start) {
-        ArrayList<ArrayList<ArrayList<PACell>>> bfsTables = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<PACell>>> dfsTables = new ArrayList<>();
         ArrayList<HashMap<String, Node>> maps = Main.dsfSearch(ng.getNodeMap(), start);
         for (HashMap<String, Node> map : maps) {
-            bfsTables.add(GraphData.buildTable(start, null, rowHeaders, null, new TrackingTable(), map));
+            dfsTables.add(GraphData.buildTable(start, null, rowHeaders, null, new TrackingTable(), map));
         }
-        return bfsTables;
+        return dfsTables;
     }
 
     /**

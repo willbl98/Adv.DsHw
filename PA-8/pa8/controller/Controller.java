@@ -32,7 +32,7 @@ public class Controller implements Initializable {
     @FXML
     private GridPane _gridPane_list;  // holds adjacency list table
     @FXML
-    private VBox _vBox_bfsContainer;  // holds bfs tracking tables
+    private VBox _vBox_dfsContainer;  // holds dfs tracking tables
     @FXML
     private Button _button_calculate;  // when pressed processes user-in
     @FXML
@@ -80,7 +80,7 @@ public class Controller implements Initializable {
 
     // Remove any previously generated tables
     private void clear() {
-        _vBox_bfsContainer.getChildren().clear();
+        _vBox_dfsContainer.getChildren().clear();
         _gridPane_matrix.getChildren().clear();
         _gridPane_list.getChildren().clear();
     }
@@ -121,22 +121,22 @@ public class Controller implements Initializable {
             if (!ng.containsNode(_textField_start.getText())) return;
 
             // Remove any previous tracking tables
-            _vBox_bfsContainer.getChildren().clear();
+            _vBox_dfsContainer.getChildren().clear();
 
-            // Generate BFS tables
-            ArrayList<ArrayList<ArrayList<PACell>>> bfsTables = TrackingTable.createTrackingTable(ng, _textField_start.getText());
+            // Generate dfs tables
+            ArrayList<ArrayList<ArrayList<PACell>>> dfsTables = TrackingTable.createTrackingTable(ng, _textField_start.getText());
 
             // Display the order visited at the top of the pane
             AdjListView visitOrder = new AdjListView(VisitOrder.createOrderList(ng));
-            _vBox_bfsContainer.getChildren().add(visitOrder.getGridPane());
+            _vBox_dfsContainer.getChildren().add(visitOrder.getGridPane());
 
             // Traverse each tracking table and add to the display container
-            for (ArrayList<ArrayList<PACell>> bfsTable : bfsTables) {
-                TrackingView trackingView = new TrackingView(bfsTable);
+            for (ArrayList<ArrayList<PACell>> dfsTable : dfsTables) {
+                TrackingView trackingView = new TrackingView(dfsTable);
                 GridPane gridPane = new GridPane();
                 gridPane.getChildren().add(trackingView.getGridPane());
                 gridPane.setAlignment(Pos.CENTER);
-                _vBox_bfsContainer.getChildren().add(gridPane);
+                _vBox_dfsContainer.getChildren().add(gridPane);
             }
         });
 
