@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- GUI elements for main UI window -->
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0"
+          stylesheets="@pa-style.css" xmlns="http://javafx.com/javafx/8.0.192">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="0.0" vgrow="ALWAYS"/>
+    </rowConstraints>
+    <Accordion stylesheets="@pa-style.css">
+        <panes>
+            <TitledPane fx:id="_titledPane_console" alignment="CENTER_RIGHT" animated="false" focusTraversable="false"
+                        stylesheets="@pa-style.css" text="Toggle Console">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+                <VBox alignment="CENTER_RIGHT" styleClass="console" stylesheets="@pa-style.css">
+                    <TextArea fx:id="_textArea_userIn" prefHeight="300.0"/>
+                    <HBox alignment="TOP_RIGHT">
+                        <VBox.margin>
+                            <Insets top="20.0"/>
+                        </VBox.margin>
+                        <VBox alignment="CENTER">
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
+                            <HBox.margin>
+                                <Insets right="20.0"/>
+                            </HBox.margin>
+                            <RadioButton fx:id="_radioButton_undirected" alignment="CENTER_RIGHT" contentDisplay="RIGHT"
+                                         focusTraversable="false" mnemonicParsing="false" text="Undirected"
+                                         textAlignment="RIGHT" textFill="WHITE"/>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
+                            <HBox.margin>
+                                <Insets right="20.0"/>
+                            </HBox.margin>
+                            <RadioButton fx:id="_radioButton_directed" alignment="CENTER_RIGHT" contentDisplay="RIGHT"
+                                         focusTraversable="false" mnemonicParsing="false" text="Directed"
+                                         textAlignment="RIGHT" textFill="WHITE"/>
+                        </VBox>
+                        <Button fx:id="_button_calculate" focusTraversable="false" mnemonicParsing="false"
+                                prefWidth="130.0" text="Process"/>
+                    </HBox>
+                </VBox>
+            </TitledPane>
+        </panes>
+        <GridPane.margin>
+            <Insets/>
+        </GridPane.margin>
+    </Accordion>
+    <TabPane stylesheets="@pa-style.css" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1">
+        <Tab closable="false" text="Adjacency Tables">
+            <ScrollPane fx:id="_scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="700.0">
+                <VBox alignment="TOP_CENTER" styleClass="tab-pane">
+                    <GridPane fx:id="_gridPane_matrix" alignment="CENTER"/>
+                    <GridPane fx:id="_gridPane_list" alignment="CENTER"/>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+        <Tab closable="false" text="DFS Tracking Table">
+            <VBox>
+                <HBox alignment="CENTER_RIGHT" styleClass="start-entry">
+                    <padding>
+                        <Insets right="20.0"/>
+                    </padding>
+                    <TextField fx:id="_textField_start" prefWidth="200.0" promptText="Enter Starting Node">
+                        <HBox.margin>
+                            <Insets right="20.0"/>
+                        </HBox.margin>
+                        <font>
+                            <Font name="Consolas Bold" size="12.0"/>
+                        </font>
+                    </TextField>
+                    <Button fx:id="_button_start" mnemonicParsing="false" text="Set Starting Node"/>
+                </HBox>
+                <ScrollPane fx:id="_scrollPane1" fitToHeight="true" fitToWidth="true" prefHeight="700.0">
+                    <VBox fx:id="_vBox_bfsContainer" alignment="TOP_CENTER" styleClass="start-entry"/>
+                </ScrollPane>
+            </VBox>
+        </Tab>
+        <GridPane.margin>
+            <Insets/>
+        </GridPane.margin>
+    </TabPane>
+</GridPane>

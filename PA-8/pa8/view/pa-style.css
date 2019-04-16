@@ -1,0 +1,296 @@
+/* Themed elements for GUI */
+
+/* Background color and font for main window */
+.root {
+    -fx-background-color: #2c313a;
+    -fx-font-family: "Ubuntu";
+}
+
+.start-entry {
+    -fx-background-color: #2c313a;
+    -fx-border-color: #2c313a;
+}
+
+.label {
+    -fx-text-fill: #a9cff1;
+}
+
+
+/**************************** ScrollPane *******************************/
+/* Background color ScrollPane */
+.scroll-pane .viewport {
+    -fx-background-color: #2c313a;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: #2c313a;
+}
+
+/* Remove/set invisible unwanted visual elements of the ScrollPane */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical > .thumb {
+    -fx-background-color: #a9cff1;
+}
+
+.scroll-bar:vertical:pressed > .thumb {
+    -fx-background-color: #ef6c00;
+}
+
+.scroll-bar:horizontal > .thumb {
+    -fx-background-color: #a9cff1;
+}
+
+.scroll-bar:horizontal:pressed > .thumb {
+    -fx-background-color: #ef6c00;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: #2c313a;
+}
+
+.scroll-pane .filler {
+    -fx-background-color: #2c313a;
+}
+
+
+/**************************** Button *******************************/
+/* Buttons for GUI */
+.button {
+    -fx-background-color: #a9cff1;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-scale: 8px;
+}
+
+/* Change color when pressed to provide user feedback */
+.button:pressed {
+    -fx-background-color: #ef6c00;
+}
+
+/**************************** TextArea *******************************/
+.console {
+    -fx-background-color: #2a303b;
+}
+
+/* Field for user input */
+/* text area to display results in written form */
+.text-area {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.8), 2, 0, 0, 0);
+    -fx-background-color: #222222;
+}
+
+.text-area .content {
+    -fx-background-color: #23252a;
+}
+
+.text-area .scroll-bar:vertical > .thumb {
+    -fx-background-color: #a9cff1;
+}
+
+.text-area .scroll-bar:vertical:pressed > .thumb {
+    -fx-background-color: #ef6c00;
+}
+
+.text-area .scroll-bar:horizontal > .thumb {
+    -fx-background-color: #a9cff1;
+}
+
+.text-area .scroll-bar:horizontal:pressed > .thumb {
+    -fx-background-color: #ef6c00;
+}
+
+.text-area .increment-button, .decrement-button {
+    -fx-background-color: transparent;
+}
+
+
+/**************************** PACellView Rectangles *******************************/
+/* ordinary node. not special */
+.white-cell {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #ffffff;
+}
+
+.gray-cell {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #c0c0c0;
+}
+
+.black-cell {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #a0a0a0;
+}
+
+.green-cell {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #95ffa2;
+}
+
+/* node is part of best alignment */
+.square-optimum {
+    -fx-alignment: center;
+    -fx-fill: transparent;
+}
+
+/* row header nodes */
+.blue-cell {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #35c2ff;
+}
+
+/* row header nodes */
+.light-blue-cell {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #a0e2ff;
+}
+
+/* column header nodes */
+.orange-cell {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #ffcc80;
+}
+
+/* column header nodes */
+.title-cell {
+    -fx-stroke-type: inside;
+    -fx-stroke: black;
+    -fx-fill: #ebdbed;
+}
+
+/* squares in [0,0] [1,0] and [0,1]*/
+.square-extra {
+    -fx-fill: transparent;
+}
+
+/* label showing the node value */
+.cell-label {
+    -fx-text-fill: black;
+    -fx-font-size: 1.0em;
+    -fx-font-weight: bold;
+}
+
+/* style for the GridPane containing the table cells*/
+.matrixview {
+    -fx-padding: 12, 0, 0, 0;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 6, 0, 0, 0);
+}
+
+
+/**************************** TitledPane *******************************/
+.accordion .titled-pane > *.content {
+    -fx-background-color: #2c313a;
+}
+
+/* label objects in the matrix show the path */
+.arrow {
+    -fx-text-fill: black;
+    -fx-font-weight: bold
+}
+
+.accordion {
+    -fx-box-border: transparent;
+}
+
+.titled-pane:hover > .title {
+    -fx-color: transparent;
+    -fx-background-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-color: #000000;
+    -fx-background-color: #000000;
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-color: #000000;
+    -fx-background-color: #000000;
+}
+
+.tab-pane *.tab-header-background {
+    -fx-background-color: #2a303b;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: transparent transparent #0d0d0d transparent;
+}
+
+
+/**************************** TabPane *******************************/
+.tab {
+    -fx-background-color: #a9cff1;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+.tab:selected {
+    -fx-background-color: #ef6c00;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+.tab-label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+
+/**************************** RadioButton *******************************/
+.radio-button {
+    -fx-rotate: 180;
+    -fx-focus-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.radio-button .radio {
+    -fx-background-color: #a9cff1;
+}
+
+.radio-button .dot {
+    -fx-highlight-fill: transparent;
+}
+
+.radio-button > .text {
+    -fx-rotate: 180;
+}
+
+
+/**************************** TextField *******************************/
+.text-field {
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.8), 2, 0, 0, 0);
+    -fx-background-color: #23252a;
+    -fx-text-fill: #ffffff;
+}
