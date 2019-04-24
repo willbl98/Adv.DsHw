@@ -7,9 +7,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Stackable of a Rectangle and Label to use to display PACell contents
+ * Stack-able of a Rectangle and Label to use to display PACell contents
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings("unused, WeakerAccess")
 public class PACellView extends StackPane {
 
     private Label labelValue;  // Contains PACell contents

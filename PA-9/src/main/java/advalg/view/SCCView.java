@@ -1,7 +1,7 @@
 package advalg.view;
 
-import advalg.App;
 import advalg.model.TableCellType;
+import advalg.App;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class SCCView extends PATableView {
         cellSize = findMaxStringLength(matrix, 1, 1);
         createCells(matrix);
         _gridPane.getStylesheets().add(App.class.getResource("pa-style.css").toExternalForm());
-        _gridPane.getStyleClass().add("matrixview");
+        _gridPane.getStyleClass().add("table-view-container");
     }
 
     /**

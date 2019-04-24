@@ -12,8 +12,8 @@ public class Node {
     private VisitStatus visitStatus;  // Marks if a node has been traversed during BFS
     private Node predecessor;  // Previously accessed node during BFS traversal
     private ArrayList<Node> neighbors;  // Neighboring nodes in the graph
-    private int firstTime;
-    private int lastTime;
+    private int firstTime;  // marks first time node is visited during DFS (Turns Gray)
+    private int lastTime;  // marks list time node is visited during DFS (Turns Black)
 
     /**
      * Created during initial creation of the NodeGraph using information from user input
@@ -27,25 +27,6 @@ public class Node {
         this.firstTime = Integer.MIN_VALUE;
         this.lastTime = Integer.MIN_VALUE;
         this.neighbors = new ArrayList<>();
-    }
-
-    /**
-     * Contains all Node information except minus its neighbors.  The Node objects are created during table generation.
-     * Only the necessary information to create the tables are needed.  BNew object are created so changes are not
-     * carried over when the ordinal objects from the NodeGraph are referenced.
-     *
-     * @param name        Name to display on the tables/To use to reference node in the neighbor HashMap
-     * @param visitStatus Marks a node as WHITE (not visited), GRAY (partially) or BLACK (completely visited)
-     * @param firstTime   marks when node is first encountered during DFS search, ie when it goes from WHITE to GRAY
-     * @param lastTime    marks when node is last encountered during DFS search, ie when it goes from GRAY to BLACK
-     * @param predecessor First previously encountered neighbor if this node
-     */
-    public Node(String name, VisitStatus visitStatus, int firstTime, int lastTime, Node predecessor) {
-        this.name = name;
-        this.visitStatus = visitStatus;
-        this.firstTime = firstTime;
-        this.lastTime = lastTime;
-        this.predecessor = predecessor;
     }
 
     public VisitStatus getVisitStatus() {
@@ -64,7 +45,7 @@ public class Node {
         return neighbors;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -79,16 +60,5 @@ public class Node {
     // Add node as neighbor
     void addNeighbor(Node node) {
         neighbors.add(node);
-    }
-
-    /**
-     * Marks nodes as visited during DSF.
-     * <p>
-     * White = not visited
-     * Gray = partially visited
-     * Black = visited as well as all its neighbors
-     */
-    public enum VisitStatus {
-        WHITE, GRAY, BLACK
     }
 }

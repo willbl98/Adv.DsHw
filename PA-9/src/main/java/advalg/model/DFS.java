@@ -2,6 +2,9 @@ package advalg.model;
 
 import java.util.Collection;
 
+/**
+ * Contains static method to perform a DFS on a NodeGraph
+ */
 public class DFS {
     private static int time;
 
@@ -12,29 +15,41 @@ public class DFS {
      */
     private static void dsfVisit(Node node) {
 
-        node.setVisitStatus(Node.VisitStatus.GRAY);
+        // Mark node as partially visited
+        node.setVisitStatus(VisitStatus.GRAY);
         node.setFirstTime(time);
         time++;
 
         for (var neighbor : node.getNeighbors()) {
-            if (neighbor.getVisitStatus() == Node.VisitStatus.WHITE) {
+            // If node's neighbors is not visited, begin the visit
+            if (neighbor.getVisitStatus() == VisitStatus.WHITE) {
                 neighbor.setPredecessor(node);
+                // visit the neighbor's neighbors
                 dsfVisit(neighbor);
             }
         }
 
-        node.setVisitStatus(Node.VisitStatus.BLACK);
+        // Mark node as completely visited
+        node.setVisitStatus(VisitStatus.BLACK);
         node.setLastTime(time);
         time++;
     }
 
-    // Begins DFS
-    public static void dfsSearch(Collection<Node> graph) {
+    /**
+     * DFS Search
+     *
+     * @param nodes graph nodes
+     */
+    public static void dfsSearch(Collection<Node> nodes) {
+
         // Init time
         time = 0;
 
-        for (var node : graph) {
-            if (node.getVisitStatus() == Node.VisitStatus.WHITE) {
+        // Begin DFS search
+        for (var node : nodes) {
+            // If node is not visited, begin the visit
+            if (node.getVisitStatus() == VisitStatus.WHITE) {
+                // continue the traversal with the node's neighbors
                 dsfVisit(node);
             }
         }

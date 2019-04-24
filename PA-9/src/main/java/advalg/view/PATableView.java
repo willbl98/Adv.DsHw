@@ -8,6 +8,7 @@ import java.util.ArrayList;
 /**
  * Contains a GridPane of all PACellView objects
  */
+
 @SuppressWarnings("WeakerAccess")
 public abstract class PATableView {
 
@@ -39,6 +40,7 @@ public abstract class PATableView {
     }
 
     // Returns max size of PACell content.  Ensures labels don't overlap cells
+    @SuppressWarnings("SameParameterValue")
     protected static int findMaxStringLength(ArrayList<ArrayList<PACell>> matrix, int i, int j) {
         int max = Integer.MIN_VALUE;
         for (int row = i; row < matrix.size(); row++) {

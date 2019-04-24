@@ -6,7 +6,7 @@ import java.util.*;
  * Builds graph of Node objects
  */
 public class NodeGraph {
-    private final ArrayList<ArrayList<Node>> sccNodes;
+
     private List<String[]> strings;
     private HashMap<String, Node> nodeMap; // Collection of Nodes
     private String[] nodeNameSet;  // Set of all nodes in the graph
@@ -20,7 +20,6 @@ public class NodeGraph {
         Arrays.sort(nodeNameSet);  // sort alphabetically
         nodeMap = createNodeList(Arrays.asList(nodeNameSet));  // add nodes to map
         establishNeighbors(nodeMap, strings);  // map neighbors to there nodes
-        sccNodes = new ArrayList<>();
     }
 
     // Populate map with the names from the node Set
@@ -60,9 +59,5 @@ public class NodeGraph {
         for (String[] strings : stringArrays) Collections.addAll(list, strings);
         // HashSet does not allow duplicate entries
         return new HashSet<>(list).toArray(new String[0]);
-    }
-
-    public ArrayList<ArrayList<Node>> getSCCNodes() {
-        return sccNodes;
     }
 }

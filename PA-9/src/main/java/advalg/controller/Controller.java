@@ -17,18 +17,18 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the Main GUI.  Allows user to enter and clear task data.
+ * Controller class for the GUI.  Allows user to enter and clear task data.
  */
 public class Controller implements Initializable {
 
     @FXML
     private GridPane _gridPane_scc;
     @FXML
-    private Button _button_calculate;  // when pressed processes user-in
+    private Button _button_calculate;  // when pressed processes user-input
     @FXML
-    private TextArea _textArea_userIn;  // space for user-in
+    private TextArea _textArea_userIn;  // area for user to input graph data
 
-    private NodeGraph ng;
+    private NodeGraph nodeGraph;
 
     /**
      * Process user information on graph nodes and edges
@@ -75,11 +75,9 @@ public class Controller implements Initializable {
 
             // Clear GUI
             clear();
-            ng = new NodeGraph(parseUserIn());
+            nodeGraph = new NodeGraph(parseUserIn());
 
-            App.SCC.findSCCNodes(ng);
-
-            var sccView = new SCCView(SCCTable.createAdjList(ng));
+            var sccView = new SCCView(SCCTable.buildTable(App.SCC.findSCCNodes(nodeGraph)));
             _gridPane_scc.getChildren().add(sccView.getGridPane());
         });
     }
